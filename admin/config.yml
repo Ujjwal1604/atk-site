@@ -13,70 +13,46 @@ collections:
         name: "alumni_joint_phd"
         file: "_data/alumni_joint_phd.json"
         fields:
-          - label: "Data"
-            name: "data"
-            widget: "code"
-            default_language: "json"
+          - {label: "Content", name: "content", widget: "code", default_language: "json", output_code_only: true}
       
       - label: "Alumni PhD"
         name: "alumni_phd"
         file: "_data/alumni_phd.json"
         fields:
-          - label: "Data"
-            name: "data"
-            widget: "code"
-            default_language: "json"
+          - {label: "Content", name: "content", widget: "code", default_language: "json", output_code_only: true}
       
       - label: "Alumni Post Doc"
         name: "alumni_post_doc"
         file: "_data/alumni_post_doc.json"
         fields:
-          - label: "Data"
-            name: "data"
-            widget: "code"
-            default_language: "json"
+          - {label: "Content", name: "content", widget: "code", default_language: "json", output_code_only: true}
       
       - label: "Members"
         name: "members"
         file: "_data/members.json"
         fields:
-          - label: "Data"
-            name: "data"
-            widget: "code"
-            default_language: "json"
+          - {label: "Content", name: "content", widget: "code", default_language: "json", output_code_only: true}
       
       - label: "Projects BTech"
         name: "projects_btech"
         file: "_data/projects_btech.json"
         fields:
-          - label: "Data"
-            name: "data"
-            widget: "code"
-            default_language: "json"
+          - {label: "Content", name: "content", widget: "code", default_language: "json", output_code_only: true}
       
       - label: "Projects PG"
         name: "projects_pg"
         file: "_data/projects_pg.json"
         fields:
-          - label: "Data"
-            name: "data"
-            widget: "code"
-            default_language: "json"
+          - {label: "Content", name: "content", widget: "code", default_language: "json", output_code_only: true}
       
       - label: "Publications"
         name: "publications"
         file: "_data/publications.json"
         fields:
-          - label: "Data"
-            name: "data"
-            widget: "code"
-            default_language: "json"
+          - {label: "Content", name: "content", widget: "code", default_language: "json", output_code_only: true}
       
       - label: "Site Settings"
         name: "site"
         file: "_data/site.json"
         fields:
-          - label: "Data"
-            name: "data"
-            widget: "code"
-            default_language: "json"
+          - {label: "Content", name: "content", widget: "code", default_language: "json", output_code_only: true}
