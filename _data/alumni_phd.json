@@ -1,219 +1,219 @@
 [
-    {
-        "name": "Dr. Gopal Bose",
-        "image": "/images/gopal.jpg",
-        "position": "Associate Director, Intonation Research Laboratory, Hyderabad-500076, Andhra Pradesh, India",
-        "thesis": "Investigation of Bromination Reactions Using Organic Ammonium Tribromide and Their Applications Towards Bioactive Natural Products Synthesis (2003)",
-        "roll_no": "974504"
-    },
-    {
-        "name": "Dr. Pankaj Malla Bujar Barua",
-        "image": "/images/barua.jpg",
-        "position": "Retired Associate Professor, Cotton College, Guwahati, Assam (Recently Deceased)",
-        "thesis": "Development of New Synthetic Methodologies in Carbohydrate Chemistry, Synthesis of the Naturally Occurring Compound Lecythophorin and Nitrogen Heterocycles (2003)",
-        "roll_no": "974501"
-    },
-    {
-        "name": "Dr. Ejabul Mondal",
-        "image": "/images/Ejabul.jpg",
-        "position": "Assistant General Manager & Head-R&D, Anchemco India Pvt Ltd (A group Company of Anand, anandgroupindia.com)",
-        "thesis": "New Synthetic Methodologies for Thio- & Dethio-acetalization of Carbonyl Compounds and Desilylation of <i>Tert</i>-Butyldimethylsilyl Ethers (2005)",
-        "roll_no": "01612206"
-    },
-    {
-        "name": "Dr. Priti Rani Sahu*",
-        "image": "/images/Priti.jpg",
-        "position": "Senior Research Scientist Chembiotek,TCG Life sciences",
-        "thesis": "Development of New Synthetic Methodology in Organic Synthesis by Employing Metal Catalysed Oxidation of Bromide by Hydrogen peroxide and Using Organic Ammonium Tribromide (2006)",
-        "roll_no": ""
-    },
-    {
-        "name": "Dr. Samimul Islam*",
-        "image": "/images/male-avatar1.png",
-        "position": "Assistant professor, Bangalore university (DOB: 10 October, 1972, passed away due to COVID-19 at Bangalore on 10th September, 2020)",
-        "thesis": "Synthesis of Biologically Active Compounds and Development of New Synthetic Methodologies (2007)",
-        "roll_no": ""
-    },
-    {
-        "name": "Dr. Subrata Ghosh",
-        "image": "/images/Subrata.jpg",
-        "position": "Professor, School of Basic Sciences, IIT Mandi",
-        "thesis": "Newer Synthetic Methodologies for Tetrahydropyranylation/depyranylation Transition Metal-free Oxidation and Thia-Michael Reactions (2007)",
-        "roll_no": "02612201"
-    },
-    {
-        "name": "Dr. Prof. Md. Lokman Hakim Choudhury",
-        "image": "/images/lokman.jpg",
-        "position": "Professor, Department of Chemistry, IIT Patna",
-        "thesis": "Applications of Phosphonium- and Sulfonium Bromide and Silica Supported Perchloric Acid for Developing New Synthetic Methodologies (2007)",
-        "roll_no": "03612205"
-    },
-    {
-        "name": "Dr. Tasneem Parvin",
-        "image": "/images/Tasneem.jpg",
-        "position": "Associate Professor, Department of Chemistry, NIT Patna",
-        "thesis": "Development of New Synthetic Methodologies Leading to β-Amino Carbonyl Compounds: Some Aspects of Multicomponent Reactions (2010)",
-        "roll_no": "06612213"
-    },
-    {
-        "name": "Dr. Md. Musawwer Khan",
-        "image": "/images/Musawwer.jpg",
-        "position": "Associate Professor, Department of Chemistry, Aligarh Muslim University",
-        "thesis": "Newer Synthetic Methodologies in Carbohydrate Chemistry and Facile Access to <i>N</i>-Heterocycles Using Multicomponent Reactions (2011)",
-        "roll_no": "06612218"
-    },
-    {
-        "name": "Dr. Rumum Rohman",
-        "image": "/images/Rumum.jpg",
-        "position": "",
-        "thesis": "Study on the Synthesis of Substituted Benzils by Employing Selenium Dioxide; Development of New Synthetic Mthodologies in Organic Synthesis (2011)",
-        "roll_no": ""
-    },
-    {
-        "name": "Dr. Shahzad Ali",
-        "image": "/images/Shahzad.jpg",
-        "position": "Associate Professor, Madhav University Pindwara, Sirohi, Rajasthan, India",
-        "thesis": "New Synthetic Methodologies by Using <i>in situ</i> Generated Iodonium Ion and by Trapping of <i>O</i>-Quinone Methide Intermediate with Various Nucleophiles (2012)",
-        "roll_no": "05612209"
-    },
-    {
-        "name": "Dr. Mohan Lal",
-        "image": "/images/mohanlal.jpg",
-        "position": "Research Manager at R&D Centre Indian Oil Corporation Limited, Faridabad, Haryana. India",
-        "thesis": "Exploration of 1,3-dicarbonyl Compounds for Multicomponent reaction(MCRs) Based Syntheses of Heterocycles (2013)",
-        "roll_no": "07612204"
-    },
-    {
-        "name": "Dr. Deb Kumar Das",
-        "image": "/images/deb.jpg",
-        "position": "Team Lead at TCG Lifesciences Pvt Ltd. West Bengal, India",
-        "thesis": "Access to Tetrahydro(pyrimidines/quinolines) and Fused Coumarin Containing Nitrogen Heterocycles Using Multicomponent Reactions (2014)",
-        "roll_no": "08612205"
-    },
-    {
-        "name": "Dr. Rajibul Arif Laskar",
-        "image": "/images/Arif.jpg",
-        "position": "Assistant Teacher at Senior High Madarsa",
-        "thesis": "New Synthetic Methodology for the Protection and Deprotection Protocol of Carbonyl Compounds and the Synthesis of β-Enamino Esters or Beta-Enaminomers (2014)",
-        "roll_no": ""
-    },
-    {
-        "name": "Dr. R Sidick Basha",
-        "image": "/images/Sidick.jpg",
-        "position": "Postdoctoral Fellow, National Chung Hsing University (NCHU), Taichung (Taiwan)",
-        "thesis": "Stereoselective Synthesis of 2-Deoxy-2-Iodo-<i>O</i>-Glycoside in Biphasic Medium and BDMS Mediated Facile Access to 2,3-Unsaturated-<i>O</i>-Glycoside, Imidazopyridine and α-Aminoamidines (2014)",
-        "roll_no": "09612214"
-    },
-    {
-        "name": "Dr. Ajaz Ahmad Dar",
-        "image": "/images/Ajaz.jpg",
-        "position": "Postdoctoral Fellow at James Winkle College of Pharmacy 231, Albert Sabin Way, MSB # 3213 Cincinnati, Ohio 45267, USA",
-        "thesis": "Synthesis of Sulfur Containing Organic Compounds Using Multicomponent Reactions (MCRs): Their Biological and Photophysical Studies (2015)",
-        "roll_no": "10612232"
-    },
-    {
-        "name": "Dr. Prasanta Ray Bagdi",
-        "image": "/images/Prasanta.jpg",
-        "position": "International Research Professor, School of Chemical Engineering, Yeungnam University, Gyeongsan 38541, Republic of Korea",
-        "thesis": "Copper Oxide Nanoparticles Assisted Synthesis of 1,4-Triazole Based New Organic Molecules And Facile Access to <i>N</i>-Heterocycles Using Multicomponent Reactions (2015)",
-        "roll_no": "10612217"
-    },
-    {
-        "name": "Dr. Abhik Choudhury",
-        "image": "/images/abhik.jpg",
-        "position": "Assistant Professor at Ambedkar College, Fatikroy, Tripura",
-        "thesis": "Regioselective Bromination of Substituted 2'-Hydroxy Chalcones and Synthesis of Fused Nitrogen Heterocycles (2016)",
-        "roll_no": "09612204"
-    },
-    {
-        "name": "Dr. Arindam Ghosh",
-        "image": "/images/arindam.jpg",
-        "position": "Research Scientist at Chembiotek,Kolkata",
-        "thesis": "Exploration of β-Oxodithioesters Toward Facile Access to Heterocycles & Synthesis of 2-Oxypyrrole and Fused Chromeno-pyrazolo-pyridine Involving MCRs Strategy (2016)",
-        "roll_no": "10612234"
-    },
-    {
-        "name": "Dr. Satavisha Sarkar",
-        "image": "/images/satavisha.jpg",
-        "position": "Postdoctoral Researcher at Calibr, Scripps Research Institute, San Diego, CA, USA",
-        "thesis": "Synthesis of Nitrogen Containing Heterocycles & Anthranilate Esters Utilizing Multicomponent Reaction (MCR) Strategy (2016)",
-        "roll_no": "10612235"
-    },
-    {
-        "name": "Dr. Suchandra Bhattacharjee",
-        "image": "/images/suchandra.jpg",
-        "position": "Research Scientist at Chembiotek, Kolkata",
-        "thesis": "Exploration of Multicomponent Reactions for the Construction of Chromenes and Highly Substituted Benzene Derivatives (2017)",
-        "roll_no": "11612218"
-    },
-    {
-        "name": "Dr. Kobirul Islam",
-        "image": "/images/kobirul.jpg",
-        "position": "Assistant Manager R & D at Coromadel International Limited, Hyderabad",
-        "thesis": "Synthesis of Nitrogenous Heterocycles <i>via</i> Multicomponent Reaction and Exploration of Naphthalen-2-ol Sulfides to Access Benzylic Ethers & Naphthofurans (2017)",
-        "roll_no": "11612215"
-    },
-    {
-        "name": "Dr. Md. Belal",
-        "image": "/images/Belal11.jpg",
-        "position": "Assistant Professor of Chemistry, Dr. Meghnad Saha College, University of Gour Banga, Ranipur, Tilna, Itahar, West Bengal",
-        "thesis": "Exploration of 3-Aminocomarins for Construction of Pyridocoumarins and pyrrolocoumarins & Sythesis of Fused Oxazoles and Thiazoles <i>via</i> Oxidative C–H Bond Funtionalization (2017)",
-        "roll_no": "126122027"
-    },
-    {
-        "name": "Dr. Karuna Mahato",
-        "image": "/images/karuna.jpg",
-        "position": "Assistant Professor, North Eastern Regional Institute of Science AND Technology, Nirjuli (Itanagar) - 791109, Arunachal Pradesh, India",
-        "thesis": "Exploration of 4-Hydroxydithiocoumarin in the Synthesis of Novel Organosulfur Compounds (2017)",
-        "roll_no": "126122029"
-    },
-    {
-        "name": "Dr. Radhakrishna Gattu",
-        "image": "/images/Gattu.jpg",
-        "position": "Research Associate at IICT Hyderabad",
-        "thesis": "Exploration of Amines for the Synthesis of Substituted Quinolines and Indoles (2018)",
-        "roll_no": "126122011"
-    },
-    {
-        "name": "Dr. Saghir Ali",
-        "image": "/images/Saghir.jpg",
-        "position": "Research Scientist at the Department of Pharmacology and Toxicology, University of Texas Medical Branch, Galveston, Texas, United States",
-        "thesis": "Newer Synthetic Approaches for Disubstituted Quinoline Derivatives from Aryl Amines (2022)",
-        "roll_no": "176122105"
-    },
-    {
-        "name": "Dr. Santa Mondal",
-        "image": "/images/Santa11.jpg",
-        "position": "Postdoctoral researcher at National Institute of Advanced Industrial Science and Technology, Tsukuba, Japan",
-        "thesis": "Reactivity Studies of 4-Hydroxydithiocoumarin: Design & Synthesis of Novel Bioactive Molecules (2022)",
-        "roll_no": "176122110"
-    },
-    {
-        "name": "Dr. Sabina Yashmin",
-        "image": "/images/sabina2.jpg",
-        "position": "Research Scientist at Jubilant Biosys Limited, Noida, Uttar Pradesh, India",
-        "thesis": "Newer Synthetic Strategies for Novel Polyheteroaromatic (PHA) Compounds and Some of Their Photo-physical Studies (2024)",
-        "roll_no": "186122031"
-    },
-    {
-        "name": "Dr. Simra Faraz",
-        "image": "/images/Simra1.jpg",
-        "position": "",
-        "thesis": "Synthesis of Substituted Quinolines & Furocoumarins: Some Naturally Occurring Coumestan Derivatives (2025)",
-        "roll_no": "216122045"
-    },
-    {
-        "name": "Dr. Anjela Xalxo",
-        "image": "/images/Anjela.jpg",
-        "position": "",
-        "thesis": "Illuminating 4-Hydroxy-2H-chromene-2-thione: A Pioneer to the Development of Novel Heterocycles with Potent Biomedical Applications",
-        "roll_no": "196122105"
-    },
-    {
-        "name": "Dr. Ujjwal Jyoti Goswami",
-        "image": "/images/Ujjwal.jpg",
-        "position": "",
-        "thesis": "Unlocking the Multi-Faceted Reactivity of 4-Hydroxythiocoumarin: Sustainable Synthesis of Novel Hybrid Heterocyclic Scaffolds with Therapeutic Potential",
-        "roll_no": "196122110"
-    }
+  {
+    "name": "Dr. Gopal Bose",
+    "image": "/images/gopal.jpg",
+    "position": "Associate Director, Intonation Research Laboratory, Hyderabad-500076, Andhra Pradesh, India",
+    "thesis": "Investigation of Bromination Reactions Using Organic Ammonium Tribromide and Their Applications Towards Bioactive Natural Products Synthesis (2003)",
+    "roll_no": "974504"
+  },
+  {
+    "name": "Dr. Pankaj Malla Bujar Barua",
+    "image": "/images/barua.jpg",
+    "position": "Retired Associate Professor, Cotton College, Guwahati, Assam (Recently Deceased)",
+    "thesis": "Development of New Synthetic Methodologies in Carbohydrate Chemistry, Synthesis of the Naturally Occurring Compound Lecythophorin and Nitrogen Heterocycles (2003)",
+    "roll_no": "974501"
+  },
+  {
+    "name": "Dr. Ejabul Mondal",
+    "image": "/images/Ejabul.jpg",
+    "position": "Assistant General Manager & Head-R&D, Anchemco India Pvt Ltd (A group Company of Anand, anandgroupindia.com)",
+    "thesis": "New Synthetic Methodologies for Thio- & Dethio-acetalization of Carbonyl Compounds and Desilylation of <i>Tert</i>-Butyldimethylsilyl Ethers (2005)",
+    "roll_no": "01612206"
+  },
+  {
+    "name": "Dr. Priti Rani Sahu*",
+    "image": "/images/Priti.jpg",
+    "position": "Senior Research Scientist Chembiotek,TCG Life sciences",
+    "thesis": "Development of New Synthetic Methodology in Organic Synthesis by Employing Metal Catalysed Oxidation of Bromide by Hydrogen peroxide and Using Organic Ammonium Tribromide (2006)",
+    "roll_no": ""
+  },
+  {
+    "name": "Dr. Samimul Islam*",
+    "image": "/images/male-avatar1.png",
+    "position": "Assistant professor, Bangalore university (DOB: 10 October, 1972, passed away due to COVID-19 at Bangalore on 10th September, 2020)",
+    "thesis": "Synthesis of Biologically Active Compounds and Development of New Synthetic Methodologies (2007)",
+    "roll_no": ""
+  },
+  {
+    "name": "Dr. Subrata Ghosh",
+    "image": "/images/Subrata.jpg",
+    "position": "Professor, School of Basic Sciences, IIT Mandi",
+    "thesis": "Newer Synthetic Methodologies for Tetrahydropyranylation/depyranylation Transition Metal-free Oxidation and Thia-Michael Reactions (2007)",
+    "roll_no": "02612201"
+  },
+  {
+    "name": "Dr. Prof. Md. Lokman Hakim Choudhury",
+    "image": "/images/lokman.jpg",
+    "position": "Professor, Department of Chemistry, IIT Patna",
+    "thesis": "Applications of Phosphonium- and Sulfonium Bromide and Silica Supported Perchloric Acid for Developing New Synthetic Methodologies (2007)",
+    "roll_no": "03612205"
+  },
+  {
+    "name": "Dr. Tasneem Parvin",
+    "image": "/images/Tasneem.jpg",
+    "position": "Associate Professor, Department of Chemistry, NIT Patna",
+    "thesis": "Development of New Synthetic Methodologies Leading to β-Amino Carbonyl Compounds: Some Aspects of Multicomponent Reactions (2010)",
+    "roll_no": "06612213"
+  },
+  {
+    "name": "Dr. Md. Musawwer Khan",
+    "image": "/images/Musawwer.jpg",
+    "position": "Associate Professor, Department of Chemistry, Aligarh Muslim University",
+    "thesis": "Newer Synthetic Methodologies in Carbohydrate Chemistry and Facile Access to <i>N</i>-Heterocycles Using Multicomponent Reactions (2011)",
+    "roll_no": "06612218"
+  },
+  {
+    "name": "Dr. Rumum Rohman",
+    "image": "/images/Rumum.jpg",
+    "position": "",
+    "thesis": "Study on the Synthesis of Substituted Benzils by Employing Selenium Dioxide; Development of New Synthetic Mthodologies in Organic Synthesis (2011)",
+    "roll_no": ""
+  },
+  {
+    "name": "Dr. Shahzad Ali",
+    "image": "/images/Shahzad.jpg",
+    "position": "Associate Professor, Madhav University Pindwara, Sirohi, Rajasthan, India",
+    "thesis": "New Synthetic Methodologies by Using <i>in situ</i> Generated Iodonium Ion and by Trapping of <i>O</i>-Quinone Methide Intermediate with Various Nucleophiles (2012)",
+    "roll_no": "05612209"
+  },
+  {
+    "name": "Dr. Mohan Lal",
+    "image": "/images/mohanlal.jpg",
+    "position": "Research Manager at R&D Centre Indian Oil Corporation Limited, Faridabad, Haryana. India",
+    "thesis": "Exploration of 1,3-dicarbonyl Compounds for Multicomponent reaction(MCRs) Based Syntheses of Heterocycles (2013)",
+    "roll_no": "07612204"
+  },
+  {
+    "name": "Dr. Deb Kumar Das",
+    "image": "/images/deb.jpg",
+    "position": "Team Lead at TCG Lifesciences Pvt Ltd. West Bengal, India",
+    "thesis": "Access to Tetrahydro(pyrimidines/quinolines) and Fused Coumarin Containing Nitrogen Heterocycles Using Multicomponent Reactions (2014)",
+    "roll_no": "08612205"
+  },
+  {
+    "name": "Dr. Rajibul Arif Laskar",
+    "image": "/images/Arif.jpg",
+    "position": "Assistant Teacher at Senior High Madarsa",
+    "thesis": "New Synthetic Methodology for the Protection and Deprotection Protocol of Carbonyl Compounds and the Synthesis of β-Enamino Esters or Beta-Enaminomers (2014)",
+    "roll_no": ""
+  },
+  {
+    "name": "Dr. R Sidick Basha",
+    "image": "/images/Sidick.jpg",
+    "position": "Postdoctoral Fellow, National Chung Hsing University (NCHU), Taichung (Taiwan)",
+    "thesis": "Stereoselective Synthesis of 2-Deoxy-2-Iodo-<i>O</i>-Glycoside in Biphasic Medium and BDMS Mediated Facile Access to 2,3-Unsaturated-<i>O</i>-Glycoside, Imidazopyridine and α-Aminoamidines (2014)",
+    "roll_no": "09612214"
+  },
+  {
+    "name": "Dr. Ajaz Ahmad Dar",
+    "image": "/images/Ajaz.jpg",
+    "position": "Postdoctoral Fellow at James Winkle College of Pharmacy 231, Albert Sabin Way, MSB # 3213 Cincinnati, Ohio 45267, USA",
+    "thesis": "Synthesis of Sulfur Containing Organic Compounds Using Multicomponent Reactions (MCRs): Their Biological and Photophysical Studies (2015)",
+    "roll_no": "10612232"
+  },
+  {
+    "name": "Dr. Prasanta Ray Bagdi",
+    "image": "/images/Prasanta.jpg",
+    "position": "International Research Professor, School of Chemical Engineering, Yeungnam University, Gyeongsan 38541, Republic of Korea",
+    "thesis": "Copper Oxide Nanoparticles Assisted Synthesis of 1,4-Triazole Based New Organic Molecules And Facile Access to <i>N</i>-Heterocycles Using Multicomponent Reactions (2015)",
+    "roll_no": "10612217"
+  },
+  {
+    "name": "Dr. Abhik Choudhury",
+    "image": "/images/abhik.jpg",
+    "position": "Assistant Professor at Ambedkar College, Fatikroy, Tripura",
+    "thesis": "Regioselective Bromination of Substituted 2'-Hydroxy Chalcones and Synthesis of Fused Nitrogen Heterocycles (2016)",
+    "roll_no": "09612204"
+  },
+  {
+    "name": "Dr. Arindam Ghosh",
+    "image": "/images/arindam.jpg",
+    "position": "Research Scientist at Chembiotek,Kolkata",
+    "thesis": "Exploration of β-Oxodithioesters Toward Facile Access to Heterocycles & Synthesis of 2-Oxypyrrole and Fused Chromeno-pyrazolo-pyridine Involving MCRs Strategy (2016)",
+    "roll_no": "10612234"
+  },
+  {
+    "name": "Dr. Satavisha Sarkar",
+    "image": "/images/satavisha.jpg",
+    "position": "Postdoctoral Researcher at Calibr, Scripps Research Institute, San Diego, CA, USA",
+    "thesis": "Synthesis of Nitrogen Containing Heterocycles & Anthranilate Esters Utilizing Multicomponent Reaction (MCR) Strategy (2016)",
+    "roll_no": "10612235"
+  },
+  {
+    "name": "Dr. Suchandra Bhattacharjee",
+    "image": "/images/suchandra.jpg",
+    "position": "Research Scientist at Chembiotek, Kolkata",
+    "thesis": "Exploration of Multicomponent Reactions for the Construction of Chromenes and Highly Substituted Benzene Derivatives (2017)",
+    "roll_no": "11612218"
+  },
+  {
+    "name": "Dr. Kobirul Islam",
+    "image": "/images/kobirul.jpg",
+    "position": "Assistant Manager R & D at Coromadel International Limited, Hyderabad",
+    "thesis": "Synthesis of Nitrogenous Heterocycles <i>via</i> Multicomponent Reaction and Exploration of Naphthalen-2-ol Sulfides to Access Benzylic Ethers & Naphthofurans (2017)",
+    "roll_no": "11612215"
+  },
+  {
+    "name": "Dr. Md. Belal",
+    "image": "/images/Belal11.jpg",
+    "position": "Assistant Professor of Chemistry, Dr. Meghnad Saha College, University of Gour Banga, Ranipur, Tilna, Itahar, West Bengal",
+    "thesis": "Exploration of 3-Aminocomarins for Construction of Pyridocoumarins and pyrrolocoumarins & Sythesis of Fused Oxazoles and Thiazoles <i>via</i> Oxidative C–H Bond Funtionalization (2017)",
+    "roll_no": "126122027"
+  },
+  {
+    "name": "Dr. Karuna Mahato",
+    "image": "/images/karuna.jpg",
+    "position": "Assistant Professor, North Eastern Regional Institute of Science AND Technology, Nirjuli (Itanagar) - 791109, Arunachal Pradesh, India",
+    "thesis": "Exploration of 4-Hydroxydithiocoumarin in the Synthesis of Novel Organosulfur Compounds (2017)",
+    "roll_no": "126122029"
+  },
+  {
+    "name": "Dr. Radhakrishna Gattu",
+    "image": "/images/Gattu.jpg",
+    "position": "Research Associate at IICT Hyderabad",
+    "thesis": "Exploration of Amines for the Synthesis of Substituted Quinolines and Indoles (2018)",
+    "roll_no": "126122011"
+  },
+  {
+    "name": "Dr. Saghir Ali",
+    "image": "/images/Saghir.jpg",
+    "position": "Research Scientist at the Department of Pharmacology and Toxicology, University of Texas Medical Branch, Galveston, Texas, United States",
+    "thesis": "Newer Synthetic Approaches for Disubstituted Quinoline Derivatives from Aryl Amines (2022)",
+    "roll_no": "176122105"
+  },
+  {
+    "name": "Dr. Santa Mondal",
+    "image": "/images/Santa11.jpg",
+    "position": "Postdoctoral researcher at National Institute of Advanced Industrial Science and Technology, Tsukuba, Japan",
+    "thesis": "Reactivity Studies of 4-Hydroxydithiocoumarin: Design & Synthesis of Novel Bioactive Molecules (2022)",
+    "roll_no": "176122110"
+  },
+  {
+    "name": "Dr. Sabina Yashmin",
+    "image": "/images/sabina2.jpg",
+    "position": "Research Scientist at Jubilant Biosys Limited, Noida, Uttar Pradesh, India",
+    "thesis": "Newer Synthetic Strategies for Novel Polyheteroaromatic (PHA) Compounds and Some of Their Photo-physical Studies (2024)",
+    "roll_no": "186122031"
+  },
+  {
+    "name": "Dr. Simra Faraz",
+    "image": "/images/Simra1.jpg",
+    "position": "",
+    "thesis": "Synthesis of Substituted Quinolines & Furocoumarins: Some Naturally Occurring Coumestan Derivatives (2025)",
+    "roll_no": "216122045"
+  },
+  {
+    "name": "Dr. Anjela Xalxo",
+    "image": "/images/Anjela.jpg",
+    "position": "",
+    "thesis": "Illuminating 4-Hydroxy-2H-chromene-2-thione: A Pioneer to the Development of Novel Heterocycles with Potent Biomedical Applications",
+    "roll_no": "196122105"
+  },
+  {
+    "name": "Dr. Ujwal Jyoti Goswami",
+    "image": "/images/Ujjwal.jpg",
+    "position": "",
+    "thesis": "Unlocking the Multi-Faceted Reactivity of 4-Hydroxythiocoumarin: Sustainable Synthesis of Novel Hybrid Heterocyclic Scaffolds with Therapeutic Potential",
+    "roll_no": "196122110"
+  }
 ]
