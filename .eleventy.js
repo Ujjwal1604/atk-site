@@ -12,6 +12,7 @@ module.exports = function (eleventyConfig) {
   // Copy the "decap admin" folder to the output
   eleventyConfig.addPassthroughCopy("admin");
   eleventyConfig.addPassthroughCopy("download.html");
+  eleventyConfig.addPassthroughCopy("editor.html");
   const prefix = process.env.PATH_PREFIX || "/atk/";
 
   return {
