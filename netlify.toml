@@ -1,0 +1,7 @@
+[build]
+  command = "npx @11ty/eleventy"
+  publish = "public"
+
+[build.environment]
+  NODE_VERSION = "18"
+  PATH_PREFIX = "/atk/"

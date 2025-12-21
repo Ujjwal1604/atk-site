@@ -1,0 +1,82 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "data"
+    label: "Site Data"
+    files:
+      - label: "Alumni Joint PhD"
+        name: "alumni_joint_phd"
+        file: "_data/alumni_joint_phd.json"
+        fields:
+          - label: "Content"
+            name: "body"
+            widget: "code"
+            default_language: "json"
+      
+      - label: "Alumni PhD"
+        name: "alumni_phd"
+        file: "_data/alumni_phd.json"
+        fields:
+          - label: "Content"
+            name: "body"
+            widget: "code"
+            default_language: "json"
+      
+      - label: "Alumni Post Doc"
+        name: "alumni_post_doc"
+        file: "_data/alumni_post_doc.json"
+        fields:
+          - label: "Content"
+            name: "body"
+            widget: "code"
+            default_language: "json"
+      
+      - label: "Members"
+        name: "members"
+        file: "_data/members.json"
+        fields:
+          - label: "Content"
+            name: "body"
+            widget: "code"
+            default_language: "json"
+      
+      - label: "Projects BTech"
+        name: "projects_btech"
+        file: "_data/projects_btech.json"
+        fields:
+          - label: "Content"
+            name: "body"
+            widget: "code"
+            default_language: "json"
+      
+      - label: "Projects PG"
+        name: "projects_pg"
+        file: "_data/projects_pg.json"
+        fields:
+          - label: "Content"
+            name: "body"
+            widget: "code"
+            default_language: "json"
+      
+      - label: "Publications"
+        name: "publications"
+        file: "_data/publications.json"
+        fields:
+          - label: "Content"
+            name: "body"
+            widget: "code"
+            default_language: "json"
+      
+      - label: "Site Settings"
+        name: "site"
+        file: "_data/site.json"
+        fields:
+          - label: "Content"
+            name: "body"
+            widget: "code"
+            default_language: "json"

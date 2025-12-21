@@ -1,0 +1,33 @@
+---
+layout: base.njk
+title: Publications
+---
+
+<div class="row g-3 mb-4">
+  <div class="col-md-4">
+    <div class="input-group">
+      <span class="input-group-text"><i class="fas fa-search"></i></span>
+      <input type="text" id="search-box" placeholder="Search publications..." class="form-control">
+    </div>
+  </div>
+  <div class="col-md-4">
+    <select id="year-filter" class="form-select">
+      <option value="">All Years</option>
+    </select>
+  </div>
+  <div class="col-md-4">
+    <select id="journal-filter" class="form-select">
+      <option value="">All Journals</option>
+    </select>
+  </div>
+</div>
+
+<ol id="pub-list" class="list-group">
+  {% set total = publications | length %}
+  {% for pub in publications %}
+  <li class="list-group-item list-group-item-action lh-lg searchable">
+    <span class="me-2">{{ total - loop.index0 }}.</span>
+    <span class="citation">{{ pub.citation | safe }}</span>
+  </li>
+  {% endfor %}
+</ol>

@@ -1,0 +1,20 @@
+---
+layout: base.njk
+title: Group Members
+---
+
+<h2>Doctoral Fellows</h2>
+
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+{% for member in members.doctoral %}
+    <div class="col">
+        <div class="card h-100 text-center shadow-sm">
+            <img src="{{ member.image | url }}" class="member-card-image img-fluid" alt="Photo of {{ member.name }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ member.name }}</h5>
+                <p class="card-text small"><a href="mailto:{{ member.email }}">{{ member.email }}</a></p>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+</div>

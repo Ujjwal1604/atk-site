@@ -1,0 +1,21 @@
+---
+layout: base.njk
+title: Welcome
+hide_title: true
+body_class: "cover-page bg-image-container"
+---
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    <main class="px-3 my-auto text-center">
+        <h1 class="display-4 fw-bold">Prof Khan's Research Group</h1>
+        <p class="lead col-lg-8 mx-auto">
+            Advancing the Frontiers of Organic Synthesis and Methodology Through Innovative Research at IIT Guwahati
+        </p>
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+             <a href="{{ '/profkhan/' | url }}" class="btn btn-outline-secondary btn-lg px-4">View Profile</a>
+             <a href="{{ '/research/' | url }}" class="btn btn-primary btn-lg px-4 gap-3">Explore Research</a>
+             <a href="{{ '/group/' | url }}" class="btn btn-secondary btn-lg px-4">Meet the Group</a>
+        </div>
+    </main>
+
+    <div class="bg-image" style="background-image: url('{{ pathPrefix }}images/researchs.jpg');"></div>
+</div>

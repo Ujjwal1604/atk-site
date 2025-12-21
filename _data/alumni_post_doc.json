@@ -1,0 +1,27 @@
+[
+    {
+        "name": "Dr. Rashid Ali",
+        "image": "/images/Rashid11.jpg",
+        "position": "Lecturer at Mahamaya Polytechnic of Information Technology, Maharajganj, Uttar Pradesh"
+    },
+    {
+        "name": "Dr. Saurabh Sharma",
+        "image": "/images/Saurabh.jpg",
+        "position": ""
+    },
+    {
+        "name": "Dr. Md. Belal",
+        "image": "/images/Belal11.jpg",
+        "position": "Assistant Professor of Chemistry, Dr. Meghnad Saha College, University of Gour Banga, Ranipur, Tilna, Itahar, West Bengal"
+    },
+    {
+        "name": "Dr. Santa Mondal",
+        "image": "/images/Santa11.jpg",
+        "position": "Postdoctoral researcher at National Institute of Advanced Industrial Science and Technology, Tsukuba, Japan"
+    },
+    {
+        "name": "Dr. Arnab Mandal",
+        "image": "/images/arnab_mondal.jpg",
+        "position": ""
+    }
+]

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Website Build</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 60px 40px;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        h1 {
+            color: #2d3748;
+            font-size: 32px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .subtitle {
+            color: #718096;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .instructions {
+            background: #f7fafc;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .step {
+            margin: 15px 0;
+            padding-left: 30px;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .step::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .button {
+            display: block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 18px 40px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .note {
+            background: #fff5e6;
+            border-left: 4px solid #ffa500;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 5px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        code {
+            background: #2d3748;
+            color: #fff;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>📦 Download Website Files</h1>
+        <p class="subtitle">Follow these steps to get the built website</p>
+
+        <div class="instructions">
+            <div class="step">
+                <strong>Step 1:</strong> Click the button below to go to Netlify
+            </div>
+            <div class="step">
+                <strong>Step 2:</strong> Log in with your email (if asked)
+            </div>
+            <div class="step">
+                <strong>Step 3:</strong> Click "Site configuration" in the top menu
+            </div>
+            <div class="step">
+                <strong>Step 4:</strong> Click "Deploys" in the left sidebar
+            </div>
+            <div class="step">
+                <strong>Step 5:</strong> Click on the latest deploy (top of the list with green ✓)
+            </div>
+            <div class="step">
+                <strong>Step 6:</strong> Scroll down to "Deploy summary" and click the three dots menu (⋮), then
+                "Download deploy"
+            </div>
+        </div>
+
+        <a href="https://app.netlify.com" target="_blank" class="button">
+            Open Netlify Dashboard →
+        </a>
+
+        <div class="note">
+            <strong>💡 Important:</strong> The downloaded file will be a ZIP containing the <code>public</code> folder
+            with all website files. Extract it and upload the <strong>contents of the public folder</strong> to your
+            institute server at <code>/atk/</code>.
+        </div>
+    </div>
+</body>
+
+</html>

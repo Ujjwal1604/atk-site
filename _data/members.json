@@ -1,0 +1,55 @@
+{
+  "doctoral": [
+    {
+      "name": "Mukesh Kumar",
+      "email": "mukeshkumar@iitg.ac.in",
+      "image": "/images/Mukesh1.jpg"
+    },
+    {
+      "name": "Ahmad Ali",
+      "email": "a.ali@iitg.ac.in",
+      "image": "/images/Ahmad1.jpg"
+    },
+    {
+      "name": "Anil Rangnath Pawar",
+      "email": "anil.pawar@iitg.ac.in",
+      "image": "/images/anil1.jpg"
+    },
+    {
+      "name": "Satyajit Singh",
+      "email": "s.satyjit@iitg.ac.in",
+      "image": "/images/satyajit1.jpg"
+    },
+    {
+      "name": "Eman Ali Sk.",
+      "email": "s.eman@iitg.ac.in",
+      "image": "/images/eman.jpg"
+    },
+    {
+      "name": "Nisha Rani",
+      "email": "nisha.rani@iitg.ac.in",
+      "image": "/images/nisha2r.jpg"
+    },
+    {
+      "name": "Halida Khatun",
+      "email": "k.halida@iitg.ac.in",
+      "image": "/images/halida.jpg"
+    },
+    {
+      "name": "Devendra Kumar",
+      "email": "devendrak2003@iitg.ac.in",
+      "image": "/images/devendra1.jpg"
+    },
+    {
+      "name": "Afzal",
+      "email": "afzal2002@iitg.ac.in",
+      "image": "/images/afzal1.jpg"
+    },
+    {
+      "name": "Somesh Shekhar Chaugule",
+      "email": "c.somesh@iitg.ac.in",
+      "image": "/images/Somesh.jpg"
+    }
+  ],
+  "postdoc": []
+}
