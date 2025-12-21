@@ -13,8 +13,8 @@ collections:
         name: "alumni_joint_phd"
         file: "_data/alumni_joint_phd.json"
         fields:
-          - label: "Content"
-            name: "body"
+          - label: "Data"
+            name: "data"
             widget: "code"
             default_language: "json"
       
@@ -22,8 +22,8 @@ collections:
         name: "alumni_phd"
         file: "_data/alumni_phd.json"
         fields:
-          - label: "Content"
-            name: "body"
+          - label: "Data"
+            name: "data"
             widget: "code"
             default_language: "json"
       
@@ -31,8 +31,8 @@ collections:
         name: "alumni_post_doc"
         file: "_data/alumni_post_doc.json"
         fields:
-          - label: "Content"
-            name: "body"
+          - label: "Data"
+            name: "data"
             widget: "code"
             default_language: "json"
       
@@ -40,8 +40,8 @@ collections:
         name: "members"
         file: "_data/members.json"
         fields:
-          - label: "Content"
-            name: "body"
+          - label: "Data"
+            name: "data"
             widget: "code"
             default_language: "json"
       
@@ -49,8 +49,8 @@ collections:
         name: "projects_btech"
         file: "_data/projects_btech.json"
         fields:
-          - label: "Content"
-            name: "body"
+          - label: "Data"
+            name: "data"
             widget: "code"
             default_language: "json"
       
@@ -58,8 +58,8 @@ collections:
         name: "projects_pg"
         file: "_data/projects_pg.json"
         fields:
-          - label: "Content"
-            name: "body"
+          - label: "Data"
+            name: "data"
             widget: "code"
             default_language: "json"
       
@@ -67,8 +67,8 @@ collections:
         name: "publications"
         file: "_data/publications.json"
         fields:
-          - label: "Content"
-            name: "body"
+          - label: "Data"
+            name: "data"
             widget: "code"
             default_language: "json"
       
@@ -76,7 +76,7 @@ collections:
         name: "site"
         file: "_data/site.json"
         fields:
-          - label: "Content"
-            name: "body"
+          - label: "Data"
+            name: "data"
             widget: "code"
             default_language: "json"
