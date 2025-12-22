@@ -1,0 +1,51 @@
+name: Build and Create Release
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Build site
+      run: npx @11ty/eleventy
+      env:
+        PATH_PREFIX: "/atk/"
+    
+    - name: Create timestamp
+      id: timestamp
+      run: echo "timestamp=$(date +'%Y%m%d-%H%M%S')" >> $GITHUB_OUTPUT
+    
+    - name: Create ZIP file
+      run: |
+        cd public
+        zip -r ../atk-website-build.zip .
+        cd ..
+    
+    - name: Create Release
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: build-${{ steps.timestamp.outputs.timestamp }}
+        name: Website Build ${{ steps.timestamp.outputs.timestamp }}
+        body: |
+          Automated build of ATK website
+          Built on: ${{ steps.timestamp.outputs.timestamp }}
+          
+          Download the ZIP file below and upload contents to your server at /atk/
+        files: atk-website-build.zip
+        token: ${{ secrets.RELEASE_TOKEN }}
