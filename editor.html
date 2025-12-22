@@ -261,7 +261,7 @@
         }
 
         .download-link {
-            display: block;
+            display: inline-block;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             padding: 15px 30px;
@@ -335,7 +335,6 @@
     <script>
         const REPO_OWNER = 'Ujjwal1604';
         const REPO_NAME = 'atk-site';
-        const BRANCH = 'main';
 
         const dataFiles = [
             { name: 'Alumni Joint PhD', file: '_data/alumni_joint_phd.json' },
@@ -400,9 +399,14 @@
             showStatus('Loading...', 'info');
 
             try {
-                const response = await fetch(
-                    `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${file.file}?ref=${BRANCH}`
-                );
+                const response = await fetch('/.netlify/functions/github-api', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'read',
+                        file: file.file
+                    })
+                });
 
                 if (!response.ok) throw new Error('Failed to load file');
 
@@ -446,35 +450,24 @@
             document.getElementById('saveBtn').disabled = true;
 
             try {
-                const token = user.token.access_token;
+                const response = await fetch('/.netlify/functions/github-api', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'write',
+                        file: currentFile.file,
+                        content: btoa(content),
+                        sha: currentSha,
+                        message: `Update ${currentFile.name} via web editor`
+                    })
+                });
 
-                const response = await fetch(
-                    `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${currentFile.file}`,
-                    {
-                        method: 'PUT',
-                        headers: {
-                            'Authorization': `token ${token}`,
-                            'Accept': 'application/vnd.github.v3+json',
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            message: `Update ${currentFile.name} via web editor`,
-                            content: btoa(content),
-                            sha: currentSha,
-                            branch: BRANCH
-                        })
-                    }
-                );
-
-                if (!response.ok) {
-                    const error = await response.json();
-                    throw new Error(error.message || 'Failed to save');
-                }
+                if (!response.ok) throw new Error('Failed to save file');
 
                 const data = await response.json();
                 currentSha = data.content.sha;
 
-                showStatus('✅ Saved successfully! GitHub is building the site (takes 2-3 minutes). Use the Download button when ready.', 'success');
+                showStatus('✅ Saved successfully! GitHub is building the site (takes 2-3 minutes). Click Download when ready.', 'success');
             } catch (error) {
                 showStatus('Error saving: ' + error.message, 'error');
             } finally {
