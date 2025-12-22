@@ -60,7 +60,7 @@
             box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
         }
 
-        .btn:hover {
+        .btn:hover:not(:disabled) {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
         }
@@ -68,12 +68,20 @@
         .btn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
-            transform: none;
+        }
+
+        .btn-small {
+            padding: 8px 16px;
+            font-size: 14px;
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #f56565 0%, #c53030 100%);
         }
 
         .editor-screen {
             display: none;
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
@@ -96,6 +104,7 @@
         .header-actions {
             display: flex;
             gap: 10px;
+            align-items: center;
         }
 
         .btn-secondary {
@@ -111,6 +120,30 @@
 
         .btn-secondary:hover {
             background: #cbd5e0;
+        }
+
+        .mode-toggle {
+            display: flex;
+            gap: 5px;
+            background: #e2e8f0;
+            padding: 4px;
+            border-radius: 8px;
+        }
+
+        .mode-btn {
+            padding: 8px 16px;
+            border: none;
+            background: transparent;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        .mode-btn.active {
+            background: white;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
 
         .content {
@@ -162,6 +195,7 @@
             border-radius: 15px;
             padding: 30px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            min-height: 600px;
         }
 
         .editor-header {
@@ -169,6 +203,8 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e2e8f0;
         }
 
         .editor-header h2 {
@@ -230,6 +266,84 @@
             margin-bottom: 10px;
         }
 
+        .form-view {
+            display: none;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-group textarea {
+            height: 100px;
+            resize: vertical;
+        }
+
+        .form-group small {
+            display: block;
+            color: #718096;
+            margin-top: 5px;
+            font-size: 12px;
+        }
+
+        .items-list {
+            margin-top: 30px;
+        }
+
+        .item-card {
+            background: #f7fafc;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border: 2px solid #e2e8f0;
+        }
+
+        .item-card:hover {
+            border-color: #cbd5e0;
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 10px;
+        }
+
+        .item-content {
+            color: #4a5568;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .item-actions {
+            display: flex;
+            gap: 8px;
+        }
+
         .download-modal {
             display: none;
             position: fixed;
@@ -271,9 +385,16 @@
             font-weight: 600;
         }
 
-        .download-link:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        .row-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .row-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
         }
     </style>
 </head>
@@ -291,7 +412,11 @@
         <div class="header">
             <h1>📝 ATK Site Editor</h1>
             <div class="header-actions">
-                <button onclick="checkForDownload()" class="btn" id="downloadBtn">📦 Download Website</button>
+                <div class="mode-toggle">
+                    <button class="mode-btn active" onclick="switchMode('simple')">Simple Mode</button>
+                    <button class="mode-btn" onclick="switchMode('advanced')">Advanced Mode</button>
+                </div>
+                <button onclick="checkForDownload()" class="btn btn-small" id="downloadBtn">📦 Download</button>
                 <button onclick="logout()" class="btn-secondary">Logout</button>
             </div>
         </div>
@@ -308,13 +433,27 @@
                     <p>Select a file from the sidebar to start editing</p>
                 </div>
 
-                <div id="editorPanel" style="display: none;">
+                <!-- Advanced Mode (JSON Editor) -->
+                <div id="advancedView" style="display: none;">
                     <div class="editor-header">
                         <h2 id="currentFileName">No file selected</h2>
-                        <button onclick="saveFile()" class="btn" id="saveBtn">Save Changes</button>
+                        <button onclick="saveFile()" class="btn btn-small" id="saveBtn">Save Changes</button>
                     </div>
                     <textarea id="editor" placeholder="Select a file to edit..."></textarea>
                     <div id="status" class="status"></div>
+                </div>
+
+                <!-- Simple Mode (Form Editor) -->
+                <div id="simpleView" class="form-view">
+                    <div class="editor-header">
+                        <h2 id="simpleFileName">No file selected</h2>
+                        <div style="display: flex; gap: 10px;">
+                            <button onclick="addNewItem()" class="btn btn-small" id="addBtn">+ Add New</button>
+                            <button onclick="saveFile()" class="btn btn-small" id="saveBtn2">Save All Changes</button>
+                        </div>
+                    </div>
+                    <div id="formContainer"></div>
+                    <div id="status2" class="status"></div>
                 </div>
             </div>
         </div>
@@ -337,24 +476,24 @@
         const REPO_NAME = 'atk-site';
 
         const dataFiles = [
-            { name: 'Alumni Joint PhD', file: '_data/alumni_joint_phd.json' },
-            { name: 'Alumni PhD', file: '_data/alumni_phd.json' },
-            { name: 'Alumni Post Doc', file: '_data/alumni_post_doc.json' },
-            { name: 'Members', file: '_data/members.json' },
-            { name: 'Projects BTech', file: '_data/projects_btech.json' },
-            { name: 'Projects PG', file: '_data/projects_pg.json' },
-            { name: 'Publications', file: '_data/publications.json' },
-            { name: 'Site Settings', file: '_data/site.json' }
+            { name: 'Publications', file: '_data/publications.json', hasForm: true, type: 'publications' },
+            { name: 'Members', file: '_data/members.json', hasForm: true, type: 'members' },
+            { name: 'Alumni PhD', file: '_data/alumni_phd.json', hasForm: true, type: 'alumni' },
+            { name: 'Projects PG', file: '_data/projects_pg.json', hasForm: true, type: 'projects' },
+            { name: 'Projects BTech', file: '_data/projects_btech.json', hasForm: true, type: 'projects' },
+            { name: 'Alumni Joint PhD', file: '_data/alumni_joint_phd.json', hasForm: false },
+            { name: 'Alumni Post Doc', file: '_data/alumni_post_doc.json', hasForm: false },
+            { name: 'Site Settings', file: '_data/site.json', hasForm: false }
         ];
 
         let currentFile = null;
         let currentSha = null;
         let user = null;
+        let currentMode = 'simple';
+        let currentData = null;
 
         netlifyIdentity.on('init', user => {
-            if (user) {
-                showEditor(user);
-            }
+            if (user) showEditor(user);
         });
 
         netlifyIdentity.on('login', user => {
@@ -390,9 +529,27 @@
                 const li = document.createElement('li');
                 li.className = 'file-item';
                 li.textContent = file.name;
+                if (file.hasForm) li.textContent += ' ✨';
                 li.onclick = () => loadFile(file);
                 fileList.appendChild(li);
             });
+        }
+
+        function switchMode(mode) {
+            currentMode = mode;
+            document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            if (currentFile) {
+                if (mode === 'simple' && currentFile.hasForm) {
+                    document.getElementById('advancedView').style.display = 'none';
+                    document.getElementById('simpleView').style.display = 'block';
+                    renderFormView();
+                } else {
+                    document.getElementById('simpleView').style.display = 'none';
+                    document.getElementById('advancedView').style.display = 'block';
+                }
+            }
         }
 
         async function loadFile(file) {
@@ -402,10 +559,7 @@
                 const response = await fetch('/.netlify/functions/github-api', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        action: 'read',
-                        file: file.file
-                    })
+                    body: JSON.stringify({ action: 'read', file: file.file })
                 });
 
                 if (!response.ok) throw new Error('Failed to load file');
@@ -415,23 +569,380 @@
 
                 currentFile = file;
                 currentSha = data.sha;
+                currentData = JSON.parse(content);
 
                 document.getElementById('welcomePanel').style.display = 'none';
-                document.getElementById('editorPanel').style.display = 'block';
                 document.getElementById('currentFileName').textContent = file.name;
-                document.getElementById('editor').value = JSON.stringify(JSON.parse(content), null, 2);
+                document.getElementById('simpleFileName').textContent = file.name;
+                document.getElementById('editor').value = JSON.stringify(currentData, null, 2);
 
                 document.querySelectorAll('.file-item').forEach(item => {
                     item.classList.remove('active');
-                    if (item.textContent === file.name) {
+                    if (item.textContent.includes(file.name)) {
                         item.classList.add('active');
                     }
                 });
+
+                if (currentMode === 'simple' && file.hasForm) {
+                    document.getElementById('advancedView').style.display = 'none';
+                    document.getElementById('simpleView').style.display = 'block';
+                    renderFormView();
+                } else {
+                    document.getElementById('simpleView').style.display = 'none';
+                    document.getElementById('advancedView').style.display = 'block';
+                }
 
                 hideStatus();
             } catch (error) {
                 showStatus('Error loading file: ' + error.message, 'error');
             }
+        }
+
+        function renderFormView() {
+            const container = document.getElementById('formContainer');
+            container.innerHTML = '';
+
+            if (currentFile.type === 'publications') {
+                renderPublicationsList();
+            } else if (currentFile.type === 'members') {
+                renderMembersList();
+            } else if (currentFile.type === 'alumni') {
+                renderAlumniList();
+            } else if (currentFile.type === 'projects') {
+                renderProjectsList();
+            }
+        }
+
+        function renderPublicationsList() {
+            const container = document.getElementById('formContainer');
+            const pubs = currentData;
+
+            container.innerHTML = '<div class="items-list"></div>';
+            const list = container.querySelector('.items-list');
+
+            pubs.forEach((pub, index) => {
+                const parsed = parsePublication(pub.citation);
+                const card = document.createElement('div');
+                card.className = 'item-card';
+                card.innerHTML = `
+                    <div class="item-header">
+                        <div style="flex: 1;">
+                            <strong>${parsed.title || 'Untitled'}</strong>
+                            <div class="item-content" style="margin-top: 8px;">
+                                ${parsed.authors || ''}<br>
+                                <em>${parsed.journal || ''}</em> ${parsed.volume || ''} ${parsed.pages || ''} (${parsed.year || ''})
+                            </div>
+                        </div>
+                        <div class="item-actions">
+                            <button class="btn btn-small" onclick="editPublication(${index})">Edit</button>
+                            <button class="btn btn-small btn-danger" onclick="deleteItem(${index})">Delete</button>
+                        </div>
+                    </div>
+                `;
+                list.appendChild(card);
+            });
+        }
+
+        function parsePublication(citation) {
+            const parts = citation.split('<br/>');
+            const title = parts[0]?.replace(/<\/?em>/g, '').trim() || '';
+            const rest = parts[1]?.trim() || '';
+
+            const authorMatch = rest.match(/^(.+?),\s*<i>(.+?)<\/i>/);
+            const authors = authorMatch ? authorMatch[1].trim() : '';
+            const journal = authorMatch ? authorMatch[2].trim() : '';
+
+            const volumeMatch = rest.match(/<\/i>,\s*(\d+)/);
+            const volume = volumeMatch ? volumeMatch[1] : '';
+
+            const pagesMatch = rest.match(/,\s*([^,]+?),\s*<b>/);
+            const pages = pagesMatch ? pagesMatch[1].trim() : '';
+
+            const yearMatch = rest.match(/<b>(\d{4})<\/b>/);
+            const year = yearMatch ? yearMatch[1] : '';
+
+            return { title, authors, journal, volume, pages, year };
+        }
+
+        function addNewItem() {
+            if (currentFile.type === 'publications') {
+                showPublicationForm();
+            } else if (currentFile.type === 'members') {
+                showMemberForm();
+            } else if (currentFile.type === 'alumni') {
+                showAlumniForm();
+            } else if (currentFile.type === 'projects') {
+                showProjectForm();
+            }
+        }
+
+        function showPublicationForm(index = null) {
+            const isEdit = index !== null;
+            const pub = isEdit ? parsePublication(currentData[index].citation) : {};
+
+            const container = document.getElementById('formContainer');
+            container.innerHTML = `
+                <div style="background: #f7fafc; padding: 25px; border-radius: 10px; margin-bottom: 20px;">
+                    <h3 style="margin-bottom: 20px; color: #2d3748;">${isEdit ? 'Edit' : 'Add New'} Publication</h3>
+                    <div class="form-group">
+                        <label>Title *</label>
+                        <textarea id="pubTitle" placeholder="Enter publication title">${pub.title || ''}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Authors *</label>
+                        <input type="text" id="pubAuthors" placeholder="E.g., E. A. Sk. and A. T. Khan" value="${pub.authors || ''}">
+                        <small>Separate multiple authors with "and"</small>
+                    </div>
+                    <div class="form-group">
+                        <label>Journal *</label>
+                        <input type="text" id="pubJournal" placeholder="E.g., Org. Biomol. Chem." value="${pub.journal || ''}">
+                    </div>
+                    <div class="row-3">
+                        <div class="form-group">
+                            <label>Volume</label>
+                            <input type="text" id="pubVolume" placeholder="23" value="${pub.volume || ''}">
+                        </div>
+                        <div class="form-group">
+                            <label>Pages *</label>
+                            <input type="text" id="pubPages" placeholder="10336–10344" value="${pub.pages || ''}">
+                        </div>
+                        <div class="form-group">
+                            <label>Year *</label>
+                            <input type="text" id="pubYear" placeholder="2025" value="${pub.year || ''}">
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 10px; margin-top: 20px;">
+                        <button class="btn" onclick="savePublicationForm(${index})">${isEdit ? 'Update' : 'Add'} Publication</button>
+                        <button class="btn-secondary" onclick="renderFormView()">Cancel</button>
+                    </div>
+                </div>
+                <div class="items-list"></div>
+            `;
+
+            renderPublicationsList();
+        }
+
+        function savePublicationForm(index) {
+            const title = document.getElementById('pubTitle').value.trim();
+            const authors = document.getElementById('pubAuthors').value.trim();
+            const journal = document.getElementById('pubJournal').value.trim();
+            const volume = document.getElementById('pubVolume').value.trim();
+            const pages = document.getElementById('pubPages').value.trim();
+            const year = document.getElementById('pubYear').value.trim();
+
+            if (!title || !authors || !journal || !pages || !year) {
+                alert('Please fill in all required fields (*)');
+                return;
+            }
+
+            const volumePart = volume ? `, ${volume}` : '';
+            const citation = `${title}<br/> ${authors}, <i>${journal}</i>${volumePart}, ${pages}, <b>${year}</b>.`;
+
+            if (index !== null) {
+                currentData[index].citation = citation;
+            } else {
+                currentData.unshift({ citation });
+            }
+
+            document.getElementById('editor').value = JSON.stringify(currentData, null, 2);
+            renderFormView();
+        }
+
+        function editPublication(index) {
+            showPublicationForm(index);
+        }
+        function renderMembersList() {
+            const container = document.getElementById('formContainer');
+            const members = currentData.doctoral || currentData;
+
+            container.innerHTML = '<div class="items-list"></div>';
+            const list = container.querySelector('.items-list');
+
+            members.forEach((member, index) => {
+                const card = document.createElement('div');
+                card.className = 'item-card';
+                card.innerHTML = `
+                    <div class="item-header">
+                        <div>
+                            <strong>${member.name}</strong>
+                            <div class="item-content">${member.email || ''}</div>
+                        </div>
+                        <div class="item-actions">
+                            <button class="btn btn-small" onclick="editMember(${index})">Edit</button>
+                            <button class="btn btn-small btn-danger" onclick="deleteItem(${index})">Delete</button>
+                        </div>
+                    </div>
+                `;
+                list.appendChild(card);
+            });
+        }
+
+        function showMemberForm(index = null) {
+            const members = currentData.doctoral || currentData;
+            const isEdit = index !== null;
+            const member = isEdit ? members[index] : {};
+
+            const container = document.getElementById('formContainer');
+            container.innerHTML = `
+                <div style="background: #f7fafc; padding: 25px; border-radius: 10px; margin-bottom: 20px;">
+                    <h3 style="margin-bottom: 20px; color: #2d3748;">${isEdit ? 'Edit' : 'Add New'} Member</h3>
+                    <div class="form-group">
+                        <label>Name *</label>
+                        <input type="text" id="memberName" placeholder="Full Name" value="${member.name || ''}">
+                    </div>
+                    <div class="form-group">
+                        <label>Email *</label>
+                        <input type="email" id="memberEmail" placeholder="email@iitg.ac.in" value="${member.email || ''}">
+                    </div>
+                    <div class="form-group">
+                        <label>Image Path</label>
+                        <input type="text" id="memberImage" placeholder="/images/name.jpg" value="${member.image || ''}">
+                        <small>Path to profile image (optional)</small>
+                    </div>
+                    <div style="display: flex; gap: 10px; margin-top: 20px;">
+                        <button class="btn" onclick="saveMemberForm(${index})">${isEdit ? 'Update' : 'Add'} Member</button>
+                        <button class="btn-secondary" onclick="renderFormView()">Cancel</button>
+                    </div>
+                </div>
+                <div class="items-list"></div>
+            `;
+
+            renderMembersList();
+        }
+
+        function saveMemberForm(index) {
+            const name = document.getElementById('memberName').value.trim();
+            const email = document.getElementById('memberEmail').value.trim();
+            const image = document.getElementById('memberImage').value.trim();
+
+            if (!name || !email) {
+                alert('Please fill in name and email');
+                return;
+            }
+
+            const member = { name, email };
+            if (image) member.image = image;
+
+            const members = currentData.doctoral || currentData;
+
+            if (index !== null) {
+                members[index] = member;
+            } else {
+                members.unshift(member);
+            }
+
+            document.getElementById('editor').value = JSON.stringify(currentData, null, 2);
+            renderFormView();
+        }
+
+        function editMember(index) {
+            showMemberForm(index);
+        }
+
+        function renderAlumniList() {
+            renderMembersList();
+        }
+
+        function showAlumniForm(index = null) {
+            showMemberForm(index);
+        }
+
+        function renderProjectsList() {
+            const container = document.getElementById('formContainer');
+            const projects = currentData;
+
+            container.innerHTML = '<div class="items-list"></div>';
+            const list = container.querySelector('.items-list');
+
+            projects.forEach((project, index) => {
+                const card = document.createElement('div');
+                card.className = 'item-card';
+                card.innerHTML = `
+                    <div class="item-header">
+                        <div>
+                            <strong>${project.title || 'Untitled Project'}</strong>
+                            <div class="item-content">${project.student || ''} (${project.year || ''})</div>
+                        </div>
+                        <div class="item-actions">
+                            <button class="btn btn-small" onclick="editProject(${index})">Edit</button>
+                            <button class="btn btn-small btn-danger" onclick="deleteItem(${index})">Delete</button>
+                        </div>
+                    </div>
+                `;
+                list.appendChild(card);
+            });
+        }
+
+        function showProjectForm(index = null) {
+            const isEdit = index !== null;
+            const project = isEdit ? currentData[index] : {};
+
+            const container = document.getElementById('formContainer');
+            container.innerHTML = `
+                <div style="background: #f7fafc; padding: 25px; border-radius: 10px; margin-bottom: 20px;">
+                    <h3 style="margin-bottom: 20px; color: #2d3748;">${isEdit ? 'Edit' : 'Add New'} Project</h3>
+                    <div class="form-group">
+                        <label>Project Title *</label>
+                        <input type="text" id="projectTitle" placeholder="Enter project title" value="${project.title || ''}">
+                    </div>
+                    <div class="row-2">
+                        <div class="form-group">
+                            <label>Student Name *</label>
+                            <input type="text" id="projectStudent" placeholder="Student name" value="${project.student || ''}">
+                        </div>
+                        <div class="form-group">
+                            <label>Year *</label>
+                            <input type="text" id="projectYear" placeholder="2025" value="${project.year || ''}">
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 10px; margin-top: 20px;">
+                        <button class="btn" onclick="saveProjectForm(${index})">${isEdit ? 'Update' : 'Add'} Project</button>
+                        <button class="btn-secondary" onclick="renderFormView()">Cancel</button>
+                    </div>
+                </div>
+                <div class="items-list"></div>
+            `;
+
+            renderProjectsList();
+        }
+
+        function saveProjectForm(index) {
+            const title = document.getElementById('projectTitle').value.trim();
+            const student = document.getElementById('projectStudent').value.trim();
+            const year = document.getElementById('projectYear').value.trim();
+
+            if (!title || !student || !year) {
+                alert('Please fill in all required fields');
+                return;
+            }
+
+            const project = { title, student, year };
+
+            if (index !== null) {
+                currentData[index] = project;
+            } else {
+                currentData.unshift(project);
+            }
+
+            document.getElementById('editor').value = JSON.stringify(currentData, null, 2);
+            renderFormView();
+        }
+
+        function editProject(index) {
+            showProjectForm(index);
+        }
+
+        function deleteItem(index) {
+            if (!confirm('Are you sure you want to delete this item?')) return;
+
+            if (currentData.doctoral) {
+                currentData.doctoral.splice(index, 1);
+            } else {
+                currentData.splice(index, 1);
+            }
+
+            document.getElementById('editor').value = JSON.stringify(currentData, null, 2);
+            renderFormView();
         }
 
         async function saveFile() {
@@ -448,6 +959,9 @@
 
             showStatus('Saving...', 'info');
             document.getElementById('saveBtn').disabled = true;
+            if (document.getElementById('saveBtn2')) {
+                document.getElementById('saveBtn2').disabled = true;
+            }
 
             try {
                 const response = await fetch('/.netlify/functions/github-api', {
@@ -466,12 +980,16 @@
 
                 const data = await response.json();
                 currentSha = data.content.sha;
+                currentData = JSON.parse(content);
 
                 showStatus('✅ Saved successfully! GitHub is building the site (takes 2-3 minutes). Click Download when ready.', 'success');
             } catch (error) {
                 showStatus('Error saving: ' + error.message, 'error');
             } finally {
                 document.getElementById('saveBtn').disabled = false;
+                if (document.getElementById('saveBtn2')) {
+                    document.getElementById('saveBtn2').disabled = false;
+                }
             }
         }
 
@@ -511,13 +1029,22 @@
 
         function showStatus(message, type) {
             const status = document.getElementById('status');
-            status.textContent = message;
-            status.className = 'status ' + type;
+            const status2 = document.getElementById('status2');
+            if (status) {
+                status.textContent = message;
+                status.className = 'status ' + type;
+            }
+            if (status2) {
+                status2.textContent = message;
+                status2.className = 'status ' + type;
+            }
         }
 
         function hideStatus() {
             const status = document.getElementById('status');
-            status.className = 'status';
+            const status2 = document.getElementById('status2');
+            if (status) status.className = 'status';
+            if (status2) status2.className = 'status';
         }
 
         netlifyIdentity.init();
