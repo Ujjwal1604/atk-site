@@ -716,44 +716,44 @@
             const pub = isEdit ? parsePublication(currentData[index].citation) : {};
 
             const container = document.getElementById('formContainer');
-            container.innerHTML = `
-                <div style="background: #f7fafc; padding: 25px; border-radius: 10px; margin-bottom: 20px;">
-                    <h3 style="margin-bottom: 20px; color: #2d3748;">${isEdit ? 'Edit' : 'Add New'} Publication</h3>
-                    <div class="form-group">
-                        <label>Title *</label>
-                        <textarea id="pubTitle" placeholder="Enter publication title">${pub.title || ''}</textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>Authors *</label>
-                        <input type="text" id="pubAuthors" placeholder="E.g., E. A. Sk. and A. T. Khan" value="${pub.authors || ''}">
-                        <small>Separate multiple authors with "and"</small>
-                    </div>
-                    <div class="form-group">
-                        <label>Journal *</label>
-                        <input type="text" id="pubJournal" placeholder="E.g., Org. Biomol. Chem." value="${pub.journal || ''}">
-                    </div>
-                    <div class="row-3">
-                        <div class="form-group">
-                            <label>Volume</label>
-                            <input type="text" id="pubVolume" placeholder="23" value="${pub.volume || ''}">
-                        </div>
-                        <div class="form-group">
-                            <label>Pages *</label>
-                            <input type="text" id="pubPages" placeholder="10336–10344" value="${pub.pages || ''}">
-                        </div>
-                        <div class="form-group">
-                            <label>Year *</label>
-                            <input type="text" id="pubYear" placeholder="2025" value="${pub.year || ''}">
-                        </div>
-                    </div>
-                    <div style="display: flex; gap: 10px; margin-top: 20px;">
-                        <button class="btn" onclick="savePublicationForm(${index})">${isEdit ? 'Update' : 'Add'} Publication</button>
-                        <button class="btn-secondary" onclick="renderFormView()">Cancel</button>
-                    </div>
-                </div>
-                <div class="items-list"></div>
-            `;
 
+            const formHTML = '<div style="background: #f7fafc; padding: 25px; border-radius: 10px; margin-bottom: 20px;">' +
+                '<h3 style="margin-bottom: 20px; color: #2d3748;">' + (isEdit ? 'Edit' : 'Add New') + ' Publication</h3>' +
+                '<div class="form-group">' +
+                '<label>Title *</label>' +
+                '<textarea id="pubTitle" placeholder="Enter publication title">' + (pub.title || '') + '</textarea>' +
+                '</div>' +
+                '<div class="form-group">' +
+                '<label>Authors *</label>' +
+                '<input type="text" id="pubAuthors" placeholder="E.g., E. A. Sk. and A. T. Khan" value="' + (pub.authors || '') + '">' +
+                '<small>Separate multiple authors with "and"</small>' +
+                '</div>' +
+                '<div class="form-group">' +
+                '<label>Journal *</label>' +
+                '<input type="text" id="pubJournal" placeholder="E.g., Org. Biomol. Chem." value="' + (pub.journal || '') + '">' +
+                '</div>' +
+                '<div class="row-3">' +
+                '<div class="form-group">' +
+                '<label>Volume</label>' +
+                '<input type="text" id="pubVolume" placeholder="23" value="' + (pub.volume || '') + '">' +
+                '</div>' +
+                '<div class="form-group">' +
+                '<label>Pages *</label>' +
+                '<input type="text" id="pubPages" placeholder="10336–10344" value="' + (pub.pages || '') + '">' +
+                '</div>' +
+                '<div class="form-group">' +
+                '<label>Year *</label>' +
+                '<input type="text" id="pubYear" placeholder="2025" value="' + (pub.year || '') + '">' +
+                '</div>' +
+                '</div>' +
+                '<div style="display: flex; gap: 10px; margin-top: 20px;">' +
+                '<button class="btn" onclick="savePublicationForm(' + index + ')">' + (isEdit ? 'Update' : 'Add') + ' Publication</button>' +
+                '<button class="btn-secondary" onclick="renderFormView()">Cancel</button>' +
+                '</div>' +
+                '</div>' +
+                '<div class="items-list"></div>';
+
+            container.innerHTML = formHTML;
             renderPublicationsList();
         }
 
