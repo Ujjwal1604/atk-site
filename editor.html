@@ -565,7 +565,7 @@
                 if (!response.ok) throw new Error('Failed to load file');
 
                 const data = await response.json();
-                const content = atob(data.content);
+                const content = decodeURIComponent(escape(atob(data.content)));
 
                 currentFile = file;
                 currentSha = data.sha;
@@ -648,18 +648,53 @@
             const title = parts[0]?.replace(/<\/?em>/g, '').trim() || '';
             const rest = parts[1]?.trim() || '';
 
-            const authorMatch = rest.match(/^(.+?),\s*<i>(.+?)<\/i>/);
-            const authors = authorMatch ? authorMatch[1].trim() : '';
-            const journal = authorMatch ? authorMatch[2].trim() : '';
+            // Try to match: Authors, <i>Journal</i>, Volume, Pages, <b>Year</b>
+            // Or: Authors <i>Journal</i>, Pages, <b>Year</b> (no volume)
 
-            const volumeMatch = rest.match(/<\/i>,\s*(\d+)/);
-            const volume = volumeMatch ? volumeMatch[1] : '';
+            let authors = '';
+            let journal = '';
+            let volume = '';
+            let pages = '';
+            let year = '';
 
-            const pagesMatch = rest.match(/,\s*([^,]+?),\s*<b>/);
-            const pages = pagesMatch ? pagesMatch[1].trim() : '';
+            // Extract journal (everything between <i> and </i>)
+            const journalMatch = rest.match(/<i>(.+?)<\/i>/);
+            if (journalMatch) {
+                journal = journalMatch[1].trim();
 
-            const yearMatch = rest.match(/<b>(\d{4})<\/b>/);
-            const year = yearMatch ? yearMatch[1] : '';
+                // Extract everything before journal as authors
+                const beforeJournal = rest.substring(0, rest.indexOf('<i>')).trim();
+                authors = beforeJournal.replace(/,\s*$/, '').trim();
+
+                // Extract everything after journal
+                const afterJournal = rest.substring(rest.indexOf('</i>') + 4).trim();
+
+                // Remove leading comma if present
+                const afterParts = afterJournal.replace(/^,\s*/, '').split(',');
+
+                // Extract year (always in <b> tags)
+                const yearMatch = afterJournal.match(/<b>(\d{4})<\/b>/);
+                if (yearMatch) {
+                    year = yearMatch[1];
+                }
+
+                // Check if there's a volume (numbers right after journal)
+                const volumeMatch = afterJournal.match(/^\s*,?\s*(\d+)/);
+                if (volumeMatch) {
+                    volume = volumeMatch[1];
+                    // Pages are between volume and year
+                    const pagesMatch = afterJournal.match(/\d+\s*,\s*(.+?)\s*,\s*<b>/);
+                    if (pagesMatch) {
+                        pages = pagesMatch[1].trim();
+                    }
+                } else {
+                    // No volume, pages are right after journal
+                    const pagesMatch = afterJournal.match(/^\s*,?\s*(.+?)\s*,\s*<b>/);
+                    if (pagesMatch) {
+                        pages = pagesMatch[1].trim();
+                    }
+                }
+            }
 
             return { title, authors, journal, volume, pages, year };
         }
@@ -970,7 +1005,7 @@
                     body: JSON.stringify({
                         action: 'write',
                         file: currentFile.file,
-                        content: btoa(content),
+                        content: btoa(unescape(encodeURIComponent(content))),
                         sha: currentSha,
                         message: `Update ${currentFile.name} via web editor`
                     })
