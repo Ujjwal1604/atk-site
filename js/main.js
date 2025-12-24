@@ -69,35 +69,32 @@ function extractFilters() {
     const journals = new Set();
 
     items.forEach(item => {
+        // We now get year and journal directly from the data attributes
+        // set by Nunjucks, no more regex/parsing needed!
+        const year = item.dataset.year;
+        const journal = item.dataset.journal;
+
+        if (year) years.add(year);
+        if (journal) journals.add(journal);
+
+        // Store original HTML to restore formatting after search highlighting
         const citationEl = item.querySelector(".citation");
-        const yearEl = citationEl.querySelector("b");
-        const journalEl = citationEl.querySelector("i");
-
-        if (yearEl) {
-            const year = yearEl.textContent.trim();
-            item.dataset.year = year;
-            years.add(year);
-        }
-
-        if (journalEl) {
-            const journal = journalEl.textContent.trim();
-            item.dataset.journal = journal;
-            journals.add(journal);
-        }
-
-        // Store original HTML to restore formatting later
         citationEl.dataset.original = citationEl.innerHTML;
     });
 
     const yearSelect = document.getElementById("year-filter");
-    [...years].sort((a, b) => b - a).forEach(y => {
-        yearSelect.add(new Option(y, y));
-    });
+    if (yearSelect) {
+        [...years].sort((a, b) => b - a).forEach(y => {
+            yearSelect.add(new Option(y, y));
+        });
+    }
 
     const journalSelect = document.getElementById("journal-filter");
-    [...journals].sort().forEach(j => {
-        journalSelect.add(new Option(j, j));
-    });
+    if (journalSelect) {
+        [...journals].sort().forEach(j => {
+            journalSelect.add(new Option(j, j));
+        });
+    }
 }
 
 function filterPublications() {
@@ -108,6 +105,8 @@ function filterPublications() {
     document.querySelectorAll(".searchable").forEach(item => {
         const citationSpan = item.querySelector(".citation");
         const originalHTML = citationSpan.dataset.original;
+
+        // Use textContent for search to ignore HTML tags
         const rawText = citationSpan.textContent.toLowerCase();
 
         const matchesQuery = rawText.includes(query);
@@ -118,20 +117,25 @@ function filterPublications() {
             item.style.display = "list-item";
 
             if (query) {
+                // Highlighting logic (remains mostly the same, but safer)
                 const tempDiv = document.createElement("div");
                 tempDiv.innerHTML = originalHTML;
 
                 const walker = document.createTreeWalker(tempDiv, NodeFilter.SHOW_TEXT);
+                let nodesToReplace = [];
+
                 while (walker.nextNode()) {
-                    const node = walker.currentNode;
+                    nodesToReplace.push(walker.currentNode);
+                }
+
+                nodesToReplace.forEach(node => {
                     const regex = new RegExp(`(${query})`, "gi");
                     if (regex.test(node.nodeValue)) {
                         const span = document.createElement("span");
                         span.innerHTML = node.nodeValue.replace(regex, "<mark>$1</mark>");
                         node.parentNode.replaceChild(span, node);
                     }
-                }
-
+                });
                 citationSpan.innerHTML = tempDiv.innerHTML;
             } else {
                 citationSpan.innerHTML = originalHTML;
@@ -142,8 +146,6 @@ function filterPublications() {
         }
     });
 }
-
-
 
 function updateFooterTransparency() {
     const footer = document.getElementById('sticky-footer');
@@ -162,12 +164,12 @@ function setupSearch(searchInputId, containerId, noResultsId) {
     const searchInput = document.getElementById(searchInputId);
     const container = document.getElementById(containerId);
     const noResults = document.getElementById(noResultsId);
-    
-    searchInput.addEventListener('input', function() {
+
+    searchInput.addEventListener('input', function () {
         const query = this.value.toLowerCase().trim();
         const items = container.querySelectorAll('[data-searchable]');
         let visibleCount = 0;
-        
+
         items.forEach(item => {
             const searchText = item.getAttribute('data-searchable');
             if (!query || searchText.includes(query)) {
@@ -177,7 +179,7 @@ function setupSearch(searchInputId, containerId, noResultsId) {
                 item.style.display = 'none';
             }
         });
-        
+
         if (visibleCount === 0) {
             noResults.classList.remove('d-none');
             // Hide table if it's a table container

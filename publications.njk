@@ -25,9 +25,21 @@ title: Publications
 <ol id="pub-list" class="list-group">
   {% set total = publications | length %}
   {% for pub in publications %}
-  <li class="list-group-item list-group-item-action lh-lg searchable">
+  <li class="list-group-item list-group-item-action lh-lg searchable" 
+      data-year="{{ pub.year }}" 
+      data-journal="{{ pub.journal }}">
+    
     <span class="me-2">{{ total - loop.index0 }}.</span>
-    <span class="citation">{{ pub.citation | safe }}</span>
+    
+    <span class="citation">
+      <strong>{{ pub.title | safe }}</strong><br/>
+      {{ pub.authors }}, 
+      <i>{{ pub.journal }}</i>, 
+      {% if pub.volume %}{{ pub.volume }},{% endif %} 
+      {{ pub.pages }}, 
+      <b>{{ pub.year }}</b>.
+    </span>
+    
   </li>
   {% endfor %}
 </ol>

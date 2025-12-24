@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Publication Data Migrator</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 40px;
+            line-height: 1.6;
+            background: #f4f7f6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #2d3748;
+        }
+
+        .box {
+            border: 2px dashed #cbd5e0;
+            padding: 20px;
+            text-align: center;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .btn {
+            background: #667eea;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .btn:disabled {
+            background: #a0aec0;
+        }
+
+        #log {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #4a5568;
+            max-height: 200px;
+            overflow-y: auto;
+            background: #edf2f7;
+            padding: 10px;
+            border-radius: 4px;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>📦 Publication Data Migrator</h2>
+        <p>Upload your <code>publications.json</code> to convert it from strings to structured data.</p>
+
+        <div class="box">
+            <input type="file" id="fileInput" accept=".json"><br><br>
+            <button id="convertBtn" class="btn" disabled>Convert & Download</button>
+        </div>
+
+        <div id="log"></div>
+    </div>
+
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const convertBtn = document.getElementById('convertBtn');
+        const log = document.getElementById('log');
+
+        fileInput.addEventListener('change', () => {
+            convertBtn.disabled = !fileInput.files.length;
+        });
+
+        convertBtn.addEventListener('click', () => {
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+
+            reader.onload = (e) => {
+                try {
+                    const oldData = JSON.parse(e.target.result);
+
+                    const newData = oldData.map((item, index) => {
+                        const citation = item.citation;
+
+                        // Skip if the item is already structured or missing a citation string
+                        if (!citation || typeof citation !== 'string') return item;
+
+                        try {
+                            // 1. EXTRACT TITLE
+                            // We grab everything from the start until the first <br/> tag.
+                            // This keeps all <sub>, <sup>, and <i> tags inside the title intact.
+                            const brMatch = citation.match(/^(.*?)<br\s*\/?>/i);
+                            const title = brMatch ? brMatch[1].trim() : citation.split(/<br\s*\/?>/i)[0].trim();
+
+                            // 2. EXTRACT AUTHORS
+                            // We look for the text between the first <br/> and the first <i> (journal) tag.
+                            const afterBrMatch = citation.match(/<br\s*\/?>\s*(.*?)\s*<i>/i);
+                            let authors = afterBrMatch ? afterBrMatch[1].trim() : "";
+                            // Clean trailing punctuation from authors
+                            authors = authors.replace(/[,\s\.]+$/, '').trim();
+
+                            // 3. EXTRACT JOURNAL
+                            // Everything inside the first <i>...</i> pair.
+                            const journalMatch = citation.match(/<i>(.*?)<\/i>/i);
+                            const journal = journalMatch ? journalMatch[1].trim() : "";
+
+                            // 4. EXTRACT YEAR
+                            // The 4-digit number inside the <b>...</b> tag.
+                            const yearMatch = citation.match(/<b>(\d{4})<\/b>/i);
+                            const year = yearMatch ? yearMatch[1] : "";
+
+                            // 5. EXTRACT VOLUME & PAGES
+                            // We find the "middle bit" of text between </i> and <b>.
+                            const startIdx = citation.toLowerCase().indexOf('</i>') + 4;
+                            const endIdx = citation.toLowerCase().indexOf('<b>');
+
+                            let volume = "";
+                            let pages = "";
+
+                            if (startIdx > 3 && endIdx > startIdx) {
+                                let middleBit = citation.substring(startIdx, endIdx).trim();
+
+                                // Remove leading/trailing commas, dots, and extra spaces
+                                middleBit = middleBit.replace(/^[,\s\.]+|[,\s\.]+$/g, '').trim();
+
+                                // Split by comma to separate Volume from Pages
+                                const parts = middleBit.split(',').map(p => p.trim());
+
+                                if (parts.length >= 2) {
+                                    // Pattern: "Volume, Pages"
+                                    volume = parts[0];
+                                    pages = parts[1];
+                                } else if (parts.length === 1 && parts[0] !== "") {
+                                    // Handle cases where only one of the two exists
+                                    const val = parts[0];
+                                    // If it has a dash, e-prefix, or parentheses, it's likely a page/issue
+                                    if (val.includes('–') || val.includes('-') || /^[eS]\d+/.test(val) || val.includes('(')) {
+                                        pages = val;
+                                    } else {
+                                        volume = val;
+                                    }
+                                }
+                            }
+
+                            return {
+                                title: title,
+                                authors: authors,
+                                journal: journal,
+                                volume: volume,
+                                pages: pages,
+                                year: year
+                            };
+
+                        } catch (err) {
+                            console.warn(`Row ${index} failed to parse properly.`, err);
+                            return {
+                                title: "MANUAL_CHECK_REQUIRED",
+                                authors: "",
+                                journal: "",
+                                volume: "",
+                                pages: "",
+                                year: "",
+                                raw: citation
+                            };
+                        }
+                    });
+
+                    // UI Feedback
+                    log.innerHTML = `✅ Successfully converted ${newData.length} publications. Check the downloaded file.`;
+                    log.style.display = 'block';
+
+                    // Trigger the download of the structured file
+                    downloadJson(newData);
+
+                } catch (err) {
+                    console.error("JSON Parse Error:", err);
+                    alert("The uploaded file is not a valid JSON. Please check the format.");
+                }
+            };
+            reader.readAsText(file);
+        });
+
+        function downloadJson(data) {
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = "structured_publications.json";
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+
+</html>
