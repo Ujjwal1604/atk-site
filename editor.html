@@ -600,7 +600,9 @@
 
         function renderFormView() {
             const container = document.getElementById('formContainer');
-            container.innerHTML = '';
+
+            // Create initial container with items-list div
+            container.innerHTML = '<div class="items-list"></div>';
 
             if (currentFile.type === 'publications') {
                 renderPublicationsList();
@@ -612,7 +614,6 @@
                 renderProjectsList();
             }
         }
-
         function renderPublicationsList() {
             const list = document.querySelector('.items-list');
             if (!list) {
