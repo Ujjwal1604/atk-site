@@ -428,6 +428,11 @@
             </div>
 
             <div class="editor-panel">
+                <div id="unsaved-alert"
+                    style="display: none; background: #fff3cd; color: #856404; padding: 15px 20px; border-radius: 10px; margin-bottom: 20px; border: 1px solid #ffeeba; justify-content: space-between; align-items: center; font-weight: 600;">
+                    <span>⚠️ You have unsaved changes. These are not on GitHub yet.</span>
+                    <button onclick="saveFile()" class="btn btn-small">Save to GitHub Now</button>
+                </div>
                 <div id="welcomePanel" class="welcome-panel">
                     <h2>Welcome!</h2>
                     <p>Select a file from the sidebar to start editing</p>
@@ -506,6 +511,7 @@
         let user = null;
         let currentMode = 'simple';
         let currentData = null;
+        let isDirty = false; // Tracks if there are unsaved changes
 
         netlifyIdentity.on('init', user => {
             if (user) showEditor(user);
@@ -549,7 +555,15 @@
                 fileList.appendChild(li);
             });
         }
+        function markAsDirty() {
+            isDirty = true;
+            document.getElementById('unsaved-alert').style.display = 'flex';
+        }
 
+        function markAsClean() {
+            isDirty = false;
+            document.getElementById('unsaved-alert').style.display = 'none';
+        }
         function switchMode(mode) {
             currentMode = mode;
             document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
@@ -810,7 +824,7 @@
 
             // Update the Advanced Mode hidden textarea so it's ready for the GitHub Push
             document.getElementById('editor').value = JSON.stringify(currentData, null, 2);
-
+            markAsDirty();
             // Return to the list view
             renderFormView();
         }
@@ -900,6 +914,7 @@
             }
 
             document.getElementById('editor').value = JSON.stringify(currentData, null, 2);
+            markAsDirty();
             renderFormView();
         }
 
@@ -962,6 +977,7 @@
             }
 
             document.getElementById('editor').value = JSON.stringify(currentData, null, 2);
+            markAsDirty();
             renderFormView();
         }
 
@@ -1092,6 +1108,7 @@
             }
 
             document.getElementById('editor').value = JSON.stringify(currentData, null, 2);
+            markAsDirty();
             renderFormView();
         }
 
@@ -1113,7 +1130,7 @@
 
             // Sync the hidden editor for GitHub Push
             document.getElementById('editor').value = JSON.stringify(currentData, null, 2);
-
+            markAsDirty();
             // Refresh UI
             renderFormView();
         }
@@ -1151,7 +1168,7 @@
 
                 const data = await response.json();
                 currentSha = data.content.sha;
-
+                markAsClean();
                 // Start Build Timer
                 title.textContent = "⚙️ GitHub Build in Progress...";
                 text.textContent = "Your changes are saved. GitHub is now rebuilding the site.";
@@ -1166,7 +1183,7 @@
                     if (timeLeft <= 0) {
                         clearInterval(interval);
                         title.textContent = "✅ Build Complete!";
-                        text.textContent = "The website should now be updated.";
+                        text.textContent = "The website should now be updated. Please download the built files by clicking the 📦 Download button at the top";
                         document.getElementById('closeSaveBtn').style.display = "inline-block";
                     }
                 }, 1000);
