@@ -458,7 +458,22 @@
             </div>
         </div>
     </div>
-
+    <div id="saveModal" class="download-modal">
+        <div class="download-content">
+            <h2 id="saveModalTitle">📤 Uploading to GitHub...</h2>
+            <p id="saveModalText">Please wait while we update the data files.</p>
+            <div id="buildTimer" style="display:none; margin: 20px 0;">
+                <div style="width: 100%; background: #eee; border-radius: 10px; height: 10px;">
+                    <div id="progressBar"
+                        style="width: 0%; background: #667eea; height: 100%; border-radius: 10px; transition: width 1s linear;">
+                    </div>
+                </div>
+                <p style="margin-top: 10px; font-weight: bold;">Estimated Build Time: <span id="timerSec">120</span>s
+                </p>
+            </div>
+            <button id="closeSaveBtn" onclick="closeSaveModal()" class="btn" style="display:none;">Finish</button>
+        </div>
+    </div>
     <div id="downloadModal" class="download-modal">
         <div class="download-content">
             <h2>📦 Download Ready!</h2>
@@ -999,17 +1014,19 @@
             list.innerHTML = '';
             const projects = currentData;
 
-            projects.forEach((project, index) => {
+            projects.forEach((proj, index) => {
                 const card = document.createElement('div');
                 card.className = 'item-card';
                 card.innerHTML = `
             <div class="item-header">
-                <div>
-                    <strong>${project.title || 'Untitled Project'}</strong>
-                    <div class="item-content">${project.student || ''} (${project.year || ''})</div>
+                <div style="flex: 1;">
+                    <strong>${proj.title}</strong>
+                    <div class="item-content" style="margin-top: 8px;">
+                        Student: ${proj.name} (Roll: ${proj.roll_no || 'N/A'}) | Year: ${proj.year}
+                    </div>
                 </div>
                 <div class="item-actions">
-                    <button class="btn btn-small" onclick="editProject(${index})">Edit</button>
+                    <button class="btn btn-small" onclick="showProjectForm(${index})">Edit</button>
                     <button class="btn btn-small btn-danger" onclick="deleteItem(${index})">Delete</button>
                 </div>
             </div>
@@ -1020,52 +1037,58 @@
 
         function showProjectForm(index = null) {
             const isEdit = index !== null;
-            const project = isEdit ? currentData[index] : {};
+            const proj = isEdit ? currentData[index] : { name: '', roll_no: '', title: '', year: '' };
 
             const container = document.getElementById('formContainer');
-            const formHTML = '<div style="background: #f7fafc; padding: 25px; border-radius: 10px; margin-bottom: 20px;">' +
-                '<h3 style="margin-bottom: 20px; color: #2d3748;">' + (isEdit ? 'Edit' : 'Add New') + ' Project</h3>' +
-                '<div class="form-group">' +
-                '<label>Project Title *</label>' +
-                '<input type="text" id="projectTitle" placeholder="Enter project title" value="' + (project.title || '') + '">' +
-                '</div>' +
-                '<div class="row-2">' +
-                '<div class="form-group">' +
-                '<label>Student Name *</label>' +
-                '<input type="text" id="projectStudent" placeholder="Student name" value="' + (project.student || '') + '">' +
-                '</div>' +
-                '<div class="form-group">' +
-                '<label>Year *</label>' +
-                '<input type="text" id="projectYear" placeholder="2025" value="' + (project.year || '') + '">' +
-                '</div>' +
-                '</div>' +
-                '<div style="display: flex; gap: 10px; margin-top: 20px;">' +
-                '<button class="btn" onclick="saveProjectForm(' + index + ')">' + (isEdit ? 'Update' : 'Add') + ' Project</button>' +
-                '<button class="btn-secondary" onclick="renderFormView()">Cancel</button>' +
-                '</div>' +
-                '</div>' +
-                '<div class="items-list"></div>';
-
+            const formHTML = `
+        <div style="background: #f7fafc; padding: 25px; border-radius: 10px; margin-bottom: 20px; border: 1px solid #e2e8f0;">
+            <h3 style="margin-bottom: 20px; color: #2d3748;">${isEdit ? 'Edit' : 'Add New'} Project</h3>
+            <div class="form-group">
+                <label>Project Title *</label>
+                <textarea id="projTitle" style="height: 60px;">${proj.title || ''}</textarea>
+            </div>
+            <div class="row-3">
+                <div class="form-group">
+                    <label>Student Name *</label>
+                    <input type="text" id="projName" value="${proj.name || ''}">
+                </div>
+                <div class="form-group">
+                    <label>Roll Number</label>
+                    <input type="text" id="projRoll" value="${proj.roll_no || ''}">
+                </div>
+                <div class="form-group">
+                    <label>Year *</label>
+                    <input type="text" id="projYear" value="${proj.year || ''}">
+                </div>
+            </div>
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button class="btn" onclick="saveProjectForm(${index})">${isEdit ? 'Update' : 'Add'} Project</button>
+                <button class="btn-secondary" onclick="renderFormView()">Cancel</button>
+            </div>
+        </div>
+        <div class="items-list"></div>
+    `;
             container.innerHTML = formHTML;
             renderProjectsList();
         }
 
         function saveProjectForm(index) {
-            const title = document.getElementById('projectTitle').value.trim();
-            const student = document.getElementById('projectStudent').value.trim();
-            const year = document.getElementById('projectYear').value.trim();
+            const title = document.getElementById('projTitle').value.trim();
+            const name = document.getElementById('projName').value.trim();
+            const roll = document.getElementById('projRoll').value.trim();
+            const year = document.getElementById('projYear').value.trim();
 
-            if (!title || !student || !year) {
-                alert('Please fill in all required fields');
+            if (!title || !name || !year) {
+                alert('Title, Student Name, and Year are required.');
                 return;
             }
 
-            const project = { title, student, year };
+            const entry = { name, roll_no: roll, title, year };
 
             if (index !== null) {
-                currentData[index] = project;
+                currentData[index] = entry;
             } else {
-                currentData.unshift(project);
+                currentData.unshift(entry);
             }
 
             document.getElementById('editor').value = JSON.stringify(currentData, null, 2);
@@ -1097,21 +1120,19 @@
 
         async function saveFile() {
             if (!currentFile) return;
-
             const content = document.getElementById('editor').value;
 
-            try {
-                JSON.parse(content);
-            } catch (e) {
-                showStatus('Invalid JSON! Please fix errors before saving.', 'error');
-                return;
-            }
+            // Show Modal
+            const modal = document.getElementById('saveModal');
+            const title = document.getElementById('saveModalTitle');
+            const text = document.getElementById('saveModalText');
+            const timer = document.getElementById('buildTimer');
+            const bar = document.getElementById('progressBar');
+            const timerSec = document.getElementById('timerSec');
 
-            showStatus('Saving...', 'info');
-            document.getElementById('saveBtn').disabled = true;
-            if (document.getElementById('saveBtn2')) {
-                document.getElementById('saveBtn2').disabled = true;
-            }
+            modal.classList.add('show');
+            title.textContent = "📤 Uploading to GitHub...";
+            timer.style.display = "none";
 
             try {
                 const response = await fetch('/.netlify/functions/github-api', {
@@ -1122,25 +1143,45 @@
                         file: currentFile.file,
                         content: btoa(unescape(encodeURIComponent(content))),
                         sha: currentSha,
-                        message: `Update ${currentFile.name} via web editor`
+                        message: `Update ${currentFile.name} via editor`
                     })
                 });
 
-                if (!response.ok) throw new Error('Failed to save file');
+                if (!response.ok) throw new Error('Failed to save');
 
                 const data = await response.json();
                 currentSha = data.content.sha;
-                currentData = JSON.parse(content);
 
-                showStatus('✅ Saved successfully! GitHub is building the site (takes 2-3 minutes). Click Download when ready.', 'success');
+                // Start Build Timer
+                title.textContent = "⚙️ GitHub Build in Progress...";
+                text.textContent = "Your changes are saved. GitHub is now rebuilding the site.";
+                timer.style.display = "block";
+
+                let timeLeft = 120;
+                const interval = setInterval(() => {
+                    timeLeft--;
+                    timerSec.textContent = timeLeft;
+                    bar.style.width = `${((120 - timeLeft) / 120) * 100}%`;
+
+                    if (timeLeft <= 0) {
+                        clearInterval(interval);
+                        title.textContent = "✅ Build Complete!";
+                        text.textContent = "The website should now be updated.";
+                        document.getElementById('closeSaveBtn').style.display = "inline-block";
+                    }
+                }, 1000);
+
             } catch (error) {
-                showStatus('Error saving: ' + error.message, 'error');
-            } finally {
-                document.getElementById('saveBtn').disabled = false;
-                if (document.getElementById('saveBtn2')) {
-                    document.getElementById('saveBtn2').disabled = false;
-                }
+                title.textContent = "❌ Error Saving";
+                text.textContent = error.message;
+                document.getElementById('closeSaveBtn').style.display = "inline-block";
             }
+        }
+
+        function closeSaveModal() {
+            document.getElementById('saveModal').classList.remove('show');
+            document.getElementById('closeSaveBtn').style.display = "none";
+            location.reload(); // Refresh to ensure everything is synced
         }
 
         async function checkForDownload() {
