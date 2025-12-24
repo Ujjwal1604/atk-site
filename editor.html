@@ -801,6 +801,8 @@
         }
 
         function editPublication(index) {
+            // This calls the showPublicationForm function we wrote previously
+            // passing the index of the specific publication to be edited.
             showPublicationForm(index);
         }
         function renderMembersList() {
@@ -891,11 +893,103 @@
         }
 
         function renderAlumniList() {
-            renderMembersList();
+            const list = document.querySelector('.items-list');
+            if (!list) return;
+
+            list.innerHTML = '';
+            // Alumni is a flat array, unlike Members which is nested under .doctoral
+            const alumni = currentData;
+
+            alumni.forEach((person, index) => {
+                const card = document.createElement('div');
+                card.className = 'item-card';
+                card.innerHTML = `
+            <div class="item-header">
+                <div style="flex: 1;">
+                    <strong>${person.name}</strong> (Roll No: ${person.roll_no || 'N/A'})
+                    <div class="item-content" style="margin-top: 8px;">
+                        <strong>Thesis:</strong> <em>${person.thesis || 'No thesis recorded'}</em>
+                    </div>
+                </div>
+                <div class="item-actions">
+                    <button class="btn btn-small" onclick="showAlumniForm(${index})">Edit</button>
+                    <button class="btn btn-small btn-danger" onclick="deleteItem(${index})">Delete</button>
+                </div>
+            </div>
+        `;
+                list.appendChild(card);
+            });
+        }
+
+        function saveAlumniForm(index) {
+            const name = document.getElementById('alumniName').value.trim();
+            const roll = document.getElementById('alumniRoll').value.trim();
+            const thesis = document.getElementById('alumniThesis').value.trim();
+            const image = document.getElementById('alumniImage').value.trim();
+
+            if (!name) {
+                alert('Name is required');
+                return;
+            }
+
+            const alumniEntry = {
+                name: name,
+                image: image,
+                position: "", // Keeping for compatibility
+                thesis: thesis,
+                roll_no: roll
+            };
+
+            if (index !== null) {
+                currentData[index] = alumniEntry;
+            } else {
+                currentData.unshift(alumniEntry);
+            }
+
+            document.getElementById('editor').value = JSON.stringify(currentData, null, 2);
+            renderFormView();
         }
 
         function showAlumniForm(index = null) {
-            showMemberForm(index);
+            const isEdit = index !== null;
+            const person = isEdit ? currentData[index] : { name: '', image: '', thesis: '', roll_no: '', position: '' };
+
+            const container = document.getElementById('formContainer');
+            const formHTML = `
+        <div style="background: #f7fafc; padding: 25px; border-radius: 10px; margin-bottom: 20px; border: 1px solid #e2e8f0;">
+            <h3 style="margin-bottom: 20px; color: #2d3748;">${isEdit ? 'Edit' : 'Add New'} Alumni Member</h3>
+            
+            <div class="row-2">
+                <div class="form-group">
+                    <label>Full Name *</label>
+                    <input type="text" id="alumniName" value="${person.name || ''}">
+                </div>
+                <div class="form-group">
+                    <label>Roll Number</label>
+                    <input type="text" id="alumniRoll" value="${person.roll_no || ''}">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Thesis Title</label>
+                <textarea id="alumniThesis" style="height: 60px;">${person.thesis || ''}</textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Image Path</label>
+                <input type="text" id="alumniImage" placeholder="/images/Name.jpg" value="${person.image || ''}">
+            </div>
+
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button class="btn" onclick="saveAlumniForm(${index})">${isEdit ? 'Update' : 'Add'} Alumni</button>
+                <button class="btn-secondary" onclick="renderFormView()">Cancel</button>
+            </div>
+        </div>
+        <div class="items-list"></div>
+    `;
+
+            container.innerHTML = formHTML;
+            renderAlumniList();
         }
 
         function renderProjectsList() {
@@ -985,13 +1079,19 @@
         function deleteItem(index) {
             if (!confirm('Are you sure you want to delete this item?')) return;
 
-            if (currentData.doctoral) {
+            // Logic for members.json (nested under 'doctoral')
+            if (currentData.doctoral && Array.isArray(currentData.doctoral)) {
                 currentData.doctoral.splice(index, 1);
-            } else {
+            }
+            // Logic for publications.json and projects (direct array)
+            else if (Array.isArray(currentData)) {
                 currentData.splice(index, 1);
             }
 
+            // Sync the hidden editor for GitHub Push
             document.getElementById('editor').value = JSON.stringify(currentData, null, 2);
+
+            // Refresh UI
             renderFormView();
         }
 
