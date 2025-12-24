@@ -715,15 +715,10 @@
         }
 
         function showPublicationForm(index = null) {
-            console.log('showPublicationForm called with index:', index);
-
             const isEdit = index !== null;
             const pub = isEdit ? parsePublication(currentData[index].citation) : {};
 
-            console.log('Parsed publication:', pub);
-
             const container = document.getElementById('formContainer');
-            console.log('Container found:', container);
 
             const formHTML = '<div style="background: #f7fafc; padding: 25px; border-radius: 10px; margin-bottom: 20px;">' +
                 '<h3 style="margin-bottom: 20px; color: #2d3748;">' + (isEdit ? 'Edit' : 'Add New') + ' Publication</h3>' +
@@ -731,15 +726,38 @@
                 '<label>Title *</label>' +
                 '<textarea id="pubTitle" placeholder="Enter publication title">' + (pub.title || '') + '</textarea>' +
                 '</div>' +
-                // ... rest of your HTML ...
+                '<div class="form-group">' +
+                '<label>Authors *</label>' +
+                '<input type="text" id="pubAuthors" placeholder="E.g., E. A. Sk. and A. T. Khan" value="' + (pub.authors || '') + '">' +
+                '<small>Separate multiple authors with "and"</small>' +
+                '</div>' +
+                '<div class="form-group">' +
+                '<label>Journal *</label>' +
+                '<input type="text" id="pubJournal" placeholder="E.g., Org. Biomol. Chem." value="' + (pub.journal || '') + '">' +
+                '</div>' +
+                '<div class="row-3">' +
+                '<div class="form-group">' +
+                '<label>Volume</label>' +
+                '<input type="text" id="pubVolume" placeholder="23" value="' + (pub.volume || '') + '">' +
+                '</div>' +
+                '<div class="form-group">' +
+                '<label>Pages *</label>' +
+                '<input type="text" id="pubPages" placeholder="10336–10344" value="' + (pub.pages || '') + '">' +
+                '</div>' +
+                '<div class="form-group">' +
+                '<label>Year *</label>' +
+                '<input type="text" id="pubYear" placeholder="2025" value="' + (pub.year || '') + '">' +
+                '</div>' +
+                '</div>' +
+                '<div style="display: flex; gap: 10px; margin-top: 20px;">' +
+                '<button class="btn" onclick="savePublicationForm(' + index + ')">' + (isEdit ? 'Update' : 'Add') + ' Publication</button>' +
+                '<button class="btn-secondary" onclick="renderFormView()">Cancel</button>' +
+                '</div>' +
                 '</div>' +
                 '<div class="items-list"></div>';
 
-            console.log('About to set innerHTML, length:', formHTML.length);
             container.innerHTML = formHTML;
-            console.log('innerHTML set, now calling renderPublicationsList');
             renderPublicationsList();
-            console.log('Done with showPublicationForm');
         }
 
         function savePublicationForm(index) {
@@ -772,27 +790,27 @@
             showPublicationForm(index);
         }
         function renderMembersList() {
-            const container = document.getElementById('formContainer');
-            const members = currentData.doctoral || currentData;
+            const list = document.querySelector('.items-list');
+            if (!list) return;
 
-            container.innerHTML = '<div class="items-list"></div>';
-            const list = container.querySelector('.items-list');
+            list.innerHTML = '';
+            const members = currentData.doctoral || currentData;
 
             members.forEach((member, index) => {
                 const card = document.createElement('div');
                 card.className = 'item-card';
                 card.innerHTML = `
-                    <div class="item-header">
-                        <div>
-                            <strong>${member.name}</strong>
-                            <div class="item-content">${member.email || ''}</div>
-                        </div>
-                        <div class="item-actions">
-                            <button class="btn btn-small" onclick="editMember(${index})">Edit</button>
-                            <button class="btn btn-small btn-danger" onclick="deleteItem(${index})">Delete</button>
-                        </div>
-                    </div>
-                `;
+            <div class="item-header">
+                <div>
+                    <strong>${member.name}</strong>
+                    <div class="item-content">${member.email || ''}</div>
+                </div>
+                <div class="item-actions">
+                    <button class="btn btn-small" onclick="editMember(${index})">Edit</button>
+                    <button class="btn btn-small btn-danger" onclick="deleteItem(${index})">Delete</button>
+                </div>
+            </div>
+        `;
                 list.appendChild(card);
             });
         }
@@ -803,30 +821,29 @@
             const member = isEdit ? members[index] : {};
 
             const container = document.getElementById('formContainer');
-            container.innerHTML = `
-                <div style="background: #f7fafc; padding: 25px; border-radius: 10px; margin-bottom: 20px;">
-                    <h3 style="margin-bottom: 20px; color: #2d3748;">${isEdit ? 'Edit' : 'Add New'} Member</h3>
-                    <div class="form-group">
-                        <label>Name *</label>
-                        <input type="text" id="memberName" placeholder="Full Name" value="${member.name || ''}">
-                    </div>
-                    <div class="form-group">
-                        <label>Email *</label>
-                        <input type="email" id="memberEmail" placeholder="email@iitg.ac.in" value="${member.email || ''}">
-                    </div>
-                    <div class="form-group">
-                        <label>Image Path</label>
-                        <input type="text" id="memberImage" placeholder="/images/name.jpg" value="${member.image || ''}">
-                        <small>Path to profile image (optional)</small>
-                    </div>
-                    <div style="display: flex; gap: 10px; margin-top: 20px;">
-                        <button class="btn" onclick="saveMemberForm(${index})">${isEdit ? 'Update' : 'Add'} Member</button>
-                        <button class="btn-secondary" onclick="renderFormView()">Cancel</button>
-                    </div>
-                </div>
-                <div class="items-list"></div>
-            `;
+            const formHTML = '<div style="background: #f7fafc; padding: 25px; border-radius: 10px; margin-bottom: 20px;">' +
+                '<h3 style="margin-bottom: 20px; color: #2d3748;">' + (isEdit ? 'Edit' : 'Add New') + ' Member</h3>' +
+                '<div class="form-group">' +
+                '<label>Name *</label>' +
+                '<input type="text" id="memberName" placeholder="Full Name" value="' + (member.name || '') + '">' +
+                '</div>' +
+                '<div class="form-group">' +
+                '<label>Email *</label>' +
+                '<input type="email" id="memberEmail" placeholder="email@iitg.ac.in" value="' + (member.email || '') + '">' +
+                '</div>' +
+                '<div class="form-group">' +
+                '<label>Image Path</label>' +
+                '<input type="text" id="memberImage" placeholder="/images/name.jpg" value="' + (member.image || '') + '">' +
+                '<small>Path to profile image (optional)</small>' +
+                '</div>' +
+                '<div style="display: flex; gap: 10px; margin-top: 20px;">' +
+                '<button class="btn" onclick="saveMemberForm(' + index + ')">' + (isEdit ? 'Update' : 'Add') + ' Member</button>' +
+                '<button class="btn-secondary" onclick="renderFormView()">Cancel</button>' +
+                '</div>' +
+                '</div>' +
+                '<div class="items-list"></div>';
 
+            container.innerHTML = formHTML;
             renderMembersList();
         }
 
@@ -868,27 +885,27 @@
         }
 
         function renderProjectsList() {
-            const container = document.getElementById('formContainer');
-            const projects = currentData;
+            const list = document.querySelector('.items-list');
+            if (!list) return;
 
-            container.innerHTML = '<div class="items-list"></div>';
-            const list = container.querySelector('.items-list');
+            list.innerHTML = '';
+            const projects = currentData;
 
             projects.forEach((project, index) => {
                 const card = document.createElement('div');
                 card.className = 'item-card';
                 card.innerHTML = `
-                    <div class="item-header">
-                        <div>
-                            <strong>${project.title || 'Untitled Project'}</strong>
-                            <div class="item-content">${project.student || ''} (${project.year || ''})</div>
-                        </div>
-                        <div class="item-actions">
-                            <button class="btn btn-small" onclick="editProject(${index})">Edit</button>
-                            <button class="btn btn-small btn-danger" onclick="deleteItem(${index})">Delete</button>
-                        </div>
-                    </div>
-                `;
+            <div class="item-header">
+                <div>
+                    <strong>${project.title || 'Untitled Project'}</strong>
+                    <div class="item-content">${project.student || ''} (${project.year || ''})</div>
+                </div>
+                <div class="item-actions">
+                    <button class="btn btn-small" onclick="editProject(${index})">Edit</button>
+                    <button class="btn btn-small btn-danger" onclick="deleteItem(${index})">Delete</button>
+                </div>
+            </div>
+        `;
                 list.appendChild(card);
             });
         }
@@ -898,31 +915,30 @@
             const project = isEdit ? currentData[index] : {};
 
             const container = document.getElementById('formContainer');
-            container.innerHTML = `
-                <div style="background: #f7fafc; padding: 25px; border-radius: 10px; margin-bottom: 20px;">
-                    <h3 style="margin-bottom: 20px; color: #2d3748;">${isEdit ? 'Edit' : 'Add New'} Project</h3>
-                    <div class="form-group">
-                        <label>Project Title *</label>
-                        <input type="text" id="projectTitle" placeholder="Enter project title" value="${project.title || ''}">
-                    </div>
-                    <div class="row-2">
-                        <div class="form-group">
-                            <label>Student Name *</label>
-                            <input type="text" id="projectStudent" placeholder="Student name" value="${project.student || ''}">
-                        </div>
-                        <div class="form-group">
-                            <label>Year *</label>
-                            <input type="text" id="projectYear" placeholder="2025" value="${project.year || ''}">
-                        </div>
-                    </div>
-                    <div style="display: flex; gap: 10px; margin-top: 20px;">
-                        <button class="btn" onclick="saveProjectForm(${index})">${isEdit ? 'Update' : 'Add'} Project</button>
-                        <button class="btn-secondary" onclick="renderFormView()">Cancel</button>
-                    </div>
-                </div>
-                <div class="items-list"></div>
-            `;
+            const formHTML = '<div style="background: #f7fafc; padding: 25px; border-radius: 10px; margin-bottom: 20px;">' +
+                '<h3 style="margin-bottom: 20px; color: #2d3748;">' + (isEdit ? 'Edit' : 'Add New') + ' Project</h3>' +
+                '<div class="form-group">' +
+                '<label>Project Title *</label>' +
+                '<input type="text" id="projectTitle" placeholder="Enter project title" value="' + (project.title || '') + '">' +
+                '</div>' +
+                '<div class="row-2">' +
+                '<div class="form-group">' +
+                '<label>Student Name *</label>' +
+                '<input type="text" id="projectStudent" placeholder="Student name" value="' + (project.student || '') + '">' +
+                '</div>' +
+                '<div class="form-group">' +
+                '<label>Year *</label>' +
+                '<input type="text" id="projectYear" placeholder="2025" value="' + (project.year || '') + '">' +
+                '</div>' +
+                '</div>' +
+                '<div style="display: flex; gap: 10px; margin-top: 20px;">' +
+                '<button class="btn" onclick="saveProjectForm(' + index + ')">' + (isEdit ? 'Update' : 'Add') + ' Project</button>' +
+                '<button class="btn-secondary" onclick="renderFormView()">Cancel</button>' +
+                '</div>' +
+                '</div>' +
+                '<div class="items-list"></div>';
 
+            container.innerHTML = formHTML;
             renderProjectsList();
         }
 
