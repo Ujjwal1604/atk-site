@@ -614,31 +614,34 @@
         }
 
         function renderPublicationsList() {
-            const container = document.getElementById('formContainer');
-            const pubs = currentData;
+            const list = document.querySelector('.items-list');
+            if (!list) {
+                console.error('items-list not found');
+                return;
+            }
 
-            container.innerHTML = '<div class="items-list"></div>';
-            const list = container.querySelector('.items-list');
+            list.innerHTML = ''; // Clear the list
+            const pubs = currentData;
 
             pubs.forEach((pub, index) => {
                 const parsed = parsePublication(pub.citation);
                 const card = document.createElement('div');
                 card.className = 'item-card';
                 card.innerHTML = `
-                    <div class="item-header">
-                        <div style="flex: 1;">
-                            <strong>${parsed.title || 'Untitled'}</strong>
-                            <div class="item-content" style="margin-top: 8px;">
-                                ${parsed.authors || ''}<br>
-                                <em>${parsed.journal || ''}</em> ${parsed.volume || ''} ${parsed.pages || ''} (${parsed.year || ''})
-                            </div>
-                        </div>
-                        <div class="item-actions">
-                            <button class="btn btn-small" onclick="editPublication(${index})">Edit</button>
-                            <button class="btn btn-small btn-danger" onclick="deleteItem(${index})">Delete</button>
-                        </div>
+            <div class="item-header">
+                <div style="flex: 1;">
+                    <strong>${parsed.title || 'Untitled'}</strong>
+                    <div class="item-content" style="margin-top: 8px;">
+                        ${parsed.authors || ''}<br>
+                        <em>${parsed.journal || ''}</em> ${parsed.volume || ''} ${parsed.pages || ''} (${parsed.year || ''})
                     </div>
-                `;
+                </div>
+                <div class="item-actions">
+                    <button class="btn btn-small" onclick="editPublication(${index})">Edit</button>
+                    <button class="btn btn-small btn-danger" onclick="deleteItem(${index})">Delete</button>
+                </div>
+            </div>
+        `;
                 list.appendChild(card);
             });
         }
